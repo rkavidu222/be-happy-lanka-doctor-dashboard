@@ -8,11 +8,10 @@ import { RequestComponent } from './request/request.component';
 import { ViewButtonComponent } from './view-button/view-button.component';
 import { NgIf } from '@angular/common';
 
-
 @Component({
   selector: 'app-root',
   standalone: true,  // Ensure AppComponent is standalone
-  imports: [RouterOutlet, SidebarComponent, DashboardComponent, ProfileComponent, RequestComponent, NgIf, ViewButtonComponent,],  // Import standalone components here
+  imports: [RouterOutlet, SidebarComponent, DashboardComponent, ProfileComponent, RequestComponent, NgIf, ViewButtonComponent],  // Import standalone components here
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
@@ -34,6 +33,5 @@ export class AppComponent implements OnInit {
   toggleSidebar() {
     this.isSidebarVisible = !this.isSidebarVisible;
   }
-
 
 }
