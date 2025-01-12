@@ -1,0 +1,65 @@
+<div class="requests-section">
+  <!-- Pending Requests Table -->
+  <h3>Pending Requests</h3>
+  <table class="table table-bordered table-hover pending-requests">
+    <thead class="thead-light">
+      <tr>
+        <th>#</th>
+        <th>Name</th>
+        <th>Mobile Number</th>
+        <th>Date</th>
+        <th>Time</th>
+        <th>Status</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1</td>
+        <td>Abc</td>
+        <td>0710000000</td>
+        <td>.......</td>
+        <td>.......</td>
+        <td>Pending</td>
+        <td>
+          <button (click)="navigateToViewButton()" class="view-btn">
+            View
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table><br><br>
+
+  <!-- Approved/Rejected Requests Table -->
+  <h3>Approved/Rejected Requests</h3>
+  <table class="table table-bordered table-hover approved-rejected-requests">
+    <thead class="thead-light">
+      <tr>
+        <th>#</th>
+        <th>Name</th>
+        <th>Mobile Number</th>
+        <th>Date</th>
+        <th>Time</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1</td>
+        <td>Abc</td>
+        <td>0710000000</td>
+        <td>.......</td>
+        <td>.......</td>
+        <td class="status approved">Approved</td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td>Mno</td>
+        <td>0710000011</td>
+        <td>.......</td>
+        <td>.......</td>
+        <td class="status rejected">Rejected</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

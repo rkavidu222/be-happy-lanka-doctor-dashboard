@@ -1,0 +1,66 @@
+<!-- Sidebar Toggle Button -->
+<button class="sidebar-toggle" (click)="toggleSidebar()">
+  <i class="bi bi-list"></i> <!-- Hamburger icon -->
+</button>
+
+<!-- Sidebar -->
+<div class="sidebar" [class.open]="isSidebarOpen">
+  <!-- Profile Section -->
+  <div class="profile">
+    <img [src]="profilePicUrl" alt="Doctor Icon" class="profile-pic" />
+
+    <h3>Dr. X.Y.Z. Peris</h3>
+  </div>
+
+  <!-- Menu List -->
+  <ul class="menu">
+    <li>
+      <a routerLink="/dashboard"
+         routerLinkActive="active-link"
+         (click)="closeSidebar()">
+        <i class="bi bi-speedometer2"></i> <span>Dashboard</span>
+      </a>
+    </li>
+    <li>
+      <a routerLink="/profile"
+         routerLinkActive="active-link"
+         (click)="closeSidebar()">
+        <i class="bi bi-person"></i> <span>My Profile</span>
+      </a>
+    </li>
+    <li>
+      <a routerLink="/request"
+         routerLinkActive="active-link"
+         (click)="closeSidebar()">
+        <i class="bi bi-file-earmark-text"></i> <span>Request</span>
+      </a>
+    </li>
+
+    <li>
+      <a routerLink="/artical"
+         routerLinkActive="active-link"
+         (click)="closeSidebar()">
+        <i class="bi bi-pencil"></i> <span>Article</span>
+      </a>
+    </li>
+
+    <li>
+      <a routerLink="/schedule"
+         routerLinkActive="active-link"
+         (click)="closeSidebar()">
+        <i class="bi bi-calendar"></i> <span>Schedule</span>
+      </a>
+    </li>
+
+    <li>
+      <a href="#" (click)="closeSidebar()">
+        <i class="bi bi-box-arrow-right"></i> <span>Sign Out</span>
+      </a>
+    </li>
+  </ul>
+
+  <!-- Footer Section -->
+  <div class="footer-logo">
+    <p>Be Happy Lanka</p>
+  </div>
+</div>

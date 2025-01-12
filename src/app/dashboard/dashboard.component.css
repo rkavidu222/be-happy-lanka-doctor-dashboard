@@ -1,0 +1,341 @@
+
+
+.profile-container {
+  background: #f9eafa;
+}
+
+/* Feed Section */
+.feed {
+  width: 60%;
+  margin: 20px auto;
+  background: #f9eafa;
+}
+
+p, ul {
+  color: #5a256f;
+}
+
+/* Post Styling */
+.post {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin: 20px 0;
+  padding: 15px;
+  background: linear-gradient(145deg, #e4cfff, #9c27b0);
+  font-family: Arial, Helvetica, sans-serif;
+  transition: transform 0.2s ease-in-out, background-color 0.2s ease-in-out;
+  opacity: 0;  /* Initially hidden */
+  transform: translateY(30px);  /* Move down */
+  transition: opacity 0.5s ease, transform 0.5s ease;  /* Animation timing */
+  z-index: 0;
+}
+
+.post.visible {
+  opacity: 1;  /* Fade in */
+  transform: translateY(0);  /* Move up */
+}
+
+.post:hover {
+  transform: translateY(-3px); /* Slight lift on hover */
+  background: #c17ff4; /* Subtle background change on hover */
+  background: linear-gradient(145deg, #e4cfff, #e4cfff);
+}
+
+.post-header {
+  display: flex;
+  align-items: center;
+}
+
+.avatar {
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.post-info h3 {
+  margin: 0;
+  font-size: 16px;
+  color: #333;
+}
+
+.post-info small {
+  color: #666;
+}
+
+.post-content img {
+  width: 100%;
+  border-radius: 8px;
+  margin-top: 10px;
+}
+
+.post-content p, ul {
+  font-size: 14px;
+  line-height: 1.6;
+  margin: 10px 0;
+}
+
+.post-actions {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.post-actions button {
+  background-color: #642197;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 4px;
+  margin-right: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.post-actions button:hover {
+  background-color: #380261;
+}
+
+.post-actions span {
+  font-size: 14px;
+  color: #333;
+}
+
+/* Stats Section (Card Layout) */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+  padding: 10px;
+}
+
+.card {
+  background: #e4cfff;
+  padding: 10px;
+  border-radius: 10px;
+  text-align: center;
+  font-size: 18px;
+  font-weight: bold;
+  color: #5a256f;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Light shadow for depth */
+  transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+  opacity: 0;  /* Initially hidden */
+  transform: translateY(30px);  /* Move down */
+}
+
+.card.visible {
+  opacity: 1;  /* Fade in */
+  transform: translateY(0);  /* Move up */
+}
+
+.card:hover {
+  transform: scale(1.02); /* Subtle scaling for interaction */
+  background-color: #d8a7f3; /* Soft background change */
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1); /* Slightly stronger shadow */
+}
+
+.card:focus {
+  outline: 2px solid #7e57c2;
+  outline-offset: 2px;
+}
+
+.card span {
+  display: block;
+  margin-top: 10px;
+  font-size: 24px;
+  color: #333;
+}
+
+/* Request Table Styling */
+.requests table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  overflow-x: auto;
+}
+
+.requests {
+  padding: 20px;
+}
+
+.requests th, .requests td {
+  padding: 10px;
+  text-align: center;
+  border: 1px solid #ddd;
+}
+
+.requests th {
+  font-size: 13px;
+}
+
+.requests tbody tr:nth-child(even) {
+  background: #f9f9f9;
+}
+
+table th, .table td {
+  border: 1px solid rgba(200, 200, 200, 0.3); /* Semi-transparent borders */
+  padding: 10px;
+  text-align: center;
+  font-size: 10px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+table th {
+  background: linear-gradient(145deg, #f3e5f5, #e1bee7); /* Gradient header */
+  color: #6a1b9a;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+table tr {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+table tr:hover {
+  transform: scale(1.02); /* Slight lift on hover */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+table td {
+  color: #555;
+  position: relative;
+}
+
+.view-btn {
+  background: linear-gradient(145deg, #9c27b0, #7b1fa2);
+  color: #fff;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 10px; /* Pill-shaped button */
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+.view-btn:hover {
+  background: linear-gradient(145deg, #7b1fa2, #9c27b0);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(123, 31, 162, 0.3); /* Glow effect on hover */
+}
+
+.view-btn:focus {
+  outline: 2px solid #5a256f;
+  outline-offset: 2px;
+}
+
+/* Media Query for Small Screens (Mobile) */
+@media (max-width: 600px) {
+  .feed {
+    width: 90%;
+  }
+
+  .stats {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .card {
+    font-size: 16px;
+    padding: 15px;
+  }
+
+  .card span {
+    font-size: 20px;
+  }
+
+  .requests th, .requests td {
+    font-size: 14px;
+    padding: 8px;
+  }
+
+}
+
+/* General Hover Animations */
+.post:hover {
+  transform: translateY(-3px); /* Slight lift on hover */
+  background: #c17ff4; /* Subtle background change on hover */
+  background: linear-gradient(145deg, #e4cfff, #e4cfff);
+}
+
+.card:hover {
+  transform: scale(1.02); /* Subtle scaling for interaction */
+  background-color: #d8a7f3; /* Soft background change */
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1); /* Slightly stronger shadow */
+}
+
+/* Floating Action Button */
+.fab {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  background-color: #ff5722;
+  color: white;
+  padding: 15px;
+  border-radius: 50%;
+  font-size: 24px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.fab:hover {
+  transform: translateY(-5px); /* Lift on hover */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3); /* Stronger shadow */
+}
+
+/* Smooth Scroll */
+html {
+  scroll-behavior: smooth;
+}
+
+.artical {
+  background-color: #7e57c2; /* Rich purple background */
+  color: white; /* White text for contrast */
+  display: flex;
+  justify-content: space-between; /* Space between text and button */
+  align-items: center; /* Center content vertically */
+  padding: 10px 20px; /* Add padding */
+  position: sticky; /* Stick to top */
+  top: 0; /* Position at top */
+  z-index: 1; /* Ensure it's above other elements */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  font-family: 'Roboto', sans-serif;
+}
+
+.artical-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.artical span {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.write-icon {
+  background-color: #ffcc80; /* Soft orange */
+  color: #5a256f; /* Dark purple for contrast */
+  border: none;
+  padding: 8px 15px;
+  border-radius: 5px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.write-icon i {
+  font-size: 16px; /* Icon size */
+}
+
+.write-icon:hover {
+  background-color: #ffa726; /* Darker orange */
+  transform: scale(1.05); /* Slight zoom on hover */
+}

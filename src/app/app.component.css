@@ -1,0 +1,12 @@
+*{
+  /*background-color: #b06cf8;*/
+}
+.main-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.container {
+  flex: 1;
+  /*transition: margin-left 0.3s ease-in-out;*/
+}

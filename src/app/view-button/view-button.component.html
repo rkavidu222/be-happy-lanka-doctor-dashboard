@@ -1,0 +1,37 @@
+<div class="all">
+  <h2>Request Management</h2><br>
+  <form (ngSubmit)="onSubmit()">
+
+    <fieldset>
+    <div class="form-group">
+      <label for="action">Take Action</label>
+      <select id="action"  name="action" required>
+        <option value="" disabled selected>Choose an option</option>
+        <option value="approve" class="approve">Approve</option>
+        <option value="reject" class="reject">Rejected</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="date">Date</label>
+      <input type="date" id="date"  name="date"  required />
+    </div>
+
+    <div class="form-group">
+      <label for="time">Time</label>
+      <input type="time" id="time"  name="time" required />
+    </div>
+
+    <div class="form-group">
+      <label for="description">Description</label>
+      <textarea id="description"  name="description" rows="4" required></textarea>
+    </div>
+
+    <button type="submit" class="submit-btn">Submit</button>
+    </fieldset>
+
+  </form>
+
+</div>
+
+

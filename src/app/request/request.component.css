@@ -1,0 +1,122 @@
+/* Requests Section Container */
+.requests-section {
+  background: rgba(249, 234, 250, 0.8); /* Glassmorphism effect */
+  backdrop-filter: blur(10px);
+  padding: 20px 40px;
+  border-radius: 12px;
+  margin: auto;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1); /* Enhanced depth */
+}
+
+/* Section Heading */
+.requests-section h3 {
+  text-align: center;
+  color: #7b1fa2;
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2); /* Soft shadow effect */
+}
+
+/* General Table Styling */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  overflow: hidden; /* Rounds table edges */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Subtle table shadow */
+}
+
+.status.approved {
+  background: rgb(98, 235, 98); /* Gradient for approved */
+}
+
+.status.rejected {
+  background: rgb(255, 0, 0); /* Gradient for rejected */
+}
+
+.table th, .table td {
+  border: 1px solid rgba(200, 200, 200, 0.3); /* Semi-transparent borders */
+  padding: 10px;
+  text-align: center;
+  font-size: 14px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.table th {
+  background: linear-gradient(145deg, #f3e5f5, #e1bee7); /* Gradient header */
+  color: #6a1b9a;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.table tr {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.table tr:hover {
+  transform: scale(1.02); /* Slight lift on hover */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.table td {
+  color: #555;
+  position: relative;
+}
+
+/* Button Styling */
+.view-btn {
+  background: linear-gradient(145deg, #9c27b0, #7b1fa2);
+  color: #fff;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 10px; /* Pill-shaped button */
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+.view-btn:hover {
+  background: linear-gradient(145deg, #7b1fa2, #9c27b0);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(123, 31, 162, 0.3); /* Glow effect on hover */
+}
+
+.view-btn:focus {
+  outline: 2px solid #5a256f;
+  outline-offset: 2px;
+}
+
+/* Approved/Rejected Status Colors */
+.status {
+  font-weight: bold;
+  padding: 8px;
+  border-radius: 8px; /* Softer edges */
+  color: #555;
+  text-align: center;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2); /* Glow for better readability */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .requests-section {
+    padding: 20px 20px;
+  }
+
+  .table th, .table td {
+    font-size: 12px; /* Adjust font size for smaller screens */
+    padding: 8px;
+  }
+
+  .view-btn {
+    font-size: 12px;
+    padding: 6px 10px;
+  }
+
+  .status {
+    font-size: 12px;
+    padding: 6px;
+  }
+}

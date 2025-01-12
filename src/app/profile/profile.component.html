@@ -1,0 +1,55 @@
+<div class="profile-container">
+  <div class="profile-header">
+    <div class="avatar">
+      <!-- Profile Picture -->
+      <img [src]="profilePicUrl" alt="Profile Picture" class="profile-pic" />
+
+      <!-- Hidden File Input for Profile Picture Change -->
+      <input type="file" accept="image/*" id="fileInput" #fileInput (change)="changeProfilePicture($event)" style="display: none" />
+
+      <!-- Button to Open File Dialog -->
+      <button class="upload-button" (click)="fileInput.click()">
+        <i class="fa fa-camera"></i> <!-- Camera Icon -->
+      </button>
+    </div>
+    <h3>Dr. X.Y.Z. Peris</h3>
+  </div>
+
+  <div class="profile-details">
+    <form>
+      <fieldset><legend><h2>My Profile</h2></legend>
+      <div class="form-row">
+        <label for="fullName">Full Name</label>
+        <input id="fullName" type="text" value="X.Y.Z.Peris" />
+      </div>
+      <div class="form-row">
+        <label for="mobile">Mobile Number</label>
+        <input id="mobile" type="text" value="077 7777777" />
+      </div>
+      <div class="form-row">
+        <label for="age">Age</label>
+        <input id="age" type="number" value="30" />
+      </div>
+      <div class="form-row">
+        <label for="address">Address</label>
+        <input id="address" type="text" value="Monaragala" />
+      </div>
+      <div class="form-row">
+        <label>Gender</label>
+        <div class="radio-group">
+          <input type="radio" id="male" name="gender" value="male" />
+          <label for="male">Male</label>
+          <input type="radio" id="female" name="gender" value="female" />
+          <label for="female">Female</label>
+        </div>
+      </div>
+      <div class="form-row">
+        <label for="status">Status</label>
+        <textarea rows="8" id="status">abc...........</textarea>
+      </div>
+    <button type="submit" class="update-button">Update</button>
+      </fieldset>
+    </form>
+  </div>
+
+</div>

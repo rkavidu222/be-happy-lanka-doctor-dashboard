@@ -1,0 +1,159 @@
+/* Sidebar Container */
+.sidebar {
+  padding: 20px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100vh;
+  background: rgba(219, 162, 255, 0.8); /* Glass effect */
+  backdrop-filter: blur(12px); /* Add blur for glassmorphism */
+  border: 1px solid rgba(255, 255, 255, 0.2); /* Subtle border for glass effect */
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1); /* Depth with shadow */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 250px; /* Default width for desktop */
+  transform: translateX(-100%); /* Initially hidden for mobile */
+  transition: transform 0.3s ease-in-out, backdrop-filter 0.3s ease; /* Smooth transition */
+  z-index: 1;
+}
+
+/* Sidebar visible */
+.sidebar.open {
+  transform: translateX(0);
+  z-index: 999;
+}
+
+/* Sidebar Toggle Button */
+.sidebar-toggle {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  background: linear-gradient(135deg, #8128ee, #d070f8);
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+  font-size: 18px;
+  border-radius: 50px; /* Fully rounded button */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Modern shadow */
+  z-index: 1000;
+  display: none;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.sidebar-toggle:hover {
+  transform: scale(1.1); /* Button hover animation */
+  background: linear-gradient(135deg, #d070f8, #8128ee);
+}
+
+/* Profile Section */
+.profile {
+  margin-bottom: 20px;
+}
+
+.profile-pic {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  margin-bottom: 10px;
+  object-fit: cover;
+  border: 5px solid rgba(255, 255, 255, 0.5); /* Soft border for emphasis */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Depth for profile picture */
+}
+
+.profile h3 {
+  font-size: 20px;
+  font-weight: bold;
+  color: #5a256f;
+  text-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Trendy text-shadow */
+  letter-spacing: 1px;
+}
+
+/* Menu Styles */
+.menu {
+  list-style: none;
+  padding: 0;
+  margin: 20px 0;
+}
+
+.menu li {
+  margin: 10px 0;
+}
+
+.menu a {
+  text-decoration: none;
+  color: #333;
+  font-weight: bold;
+  font-size: 16px;
+  display: flex; /* Use Flexbox for alignment */
+  align-items: center;
+  padding: 15px 20px; /* Spacious padding */
+  border-radius: 15px; /* Modern rounded corners */
+  background: rgba(255, 255, 255, 0.2); /* Glassy menu background */
+  transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+  gap: 10px; /* Space between icon and text */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Depth for menu items */
+}
+
+.menu a i {
+  font-size: 1.4rem; /* Slightly larger, modern icon size */
+  color: #8128ee;
+}
+
+.menu a:hover {
+  color: #fff;
+  background: linear-gradient(135deg, #8128ee, #d070f8);
+  box-shadow: 0px 6px 12px rgba(129, 40, 238, 0.4); /* Glow effect */
+  transform: translateY(-2px); /* Slight lift on hover */
+}
+
+.menu a:hover i {
+  color: #fff;
+}
+.menu a.active-link i {
+  color: #fff;
+}
+
+.menu a span {
+  flex: 1;
+}
+
+.menu a:focus {
+  outline: 2px solid #7e57c2;
+
+}
+
+/* Footer Logo */
+.footer-logo {
+  margin-top: auto;
+  font-size: 16px;
+  color: rgba(90, 37, 111, 0.8);
+  font-weight: bold;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  letter-spacing: 1px;
+  margin-bottom: 5%;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .sidebar-toggle {
+    display: block;
+  }
+
+  .menu a {
+    font-size: 14px; /* Compact font for smaller screens */
+    padding: 12px 15px; /* Adjusted padding */
+  }
+}
+
+
+/* Active menu item background */
+.menu a.active-link {
+  background: linear-gradient(135deg, #6a1b9a, #ab47bc); /* Gradient shades of purple */
+  color: white;
+  box-shadow: 0px 6px 12px rgba(106, 27, 154, 0.4); /* Glow effect with purple hue */
+  transition: transform 0.3s ease, background-color 0.3s ease; /* Smooth transition */
+}
+

@@ -1,0 +1,40 @@
+app-view-button{
+  background-color: #5a256f;
+}
+/* Sidebar styles */
+@media (min-width: 768px) {
+  app-sidebar{
+    width: 250px; /* Sidebar will take 25% of the width */
+    background-color: #f3e1f9; /* Light purple background for sidebar */
+    padding: 20px; /* Add padding for spacing */
+    display: block;
+    flex-direction: column;
+    justify-content: space-between; /* Space out content (profile, menu, footer) */
+    height: 100vh; /* Ensure sidebar stretches full height */
+
+  }
+}
+
+/* Dashboard styles */
+app-dashboard {
+  flex: 1; /* This makes dashboard take the remaining space */
+  /*padding: 20px; !* Add padding inside the dashboard *!*/
+  /*overflow-y: auto; !* Allows scrolling if content overflows *!*/
+  /*transition: transform 0.3s ease;*/
+  /*background-color: #a372b6;*/
+}
+
+/* Optionally, you can add more specific styles to ensure everything looks good */
+body {
+  margin: 0; /* Remove default body margin */
+  font-family: Arial, sans-serif; /* Optional: Set a font family */
+  /*background-color: #fff; !* Set a global background color *!*/
+}
+app-profile{
+  /*flex: 1;*/
+  /*background: #e8bbbb;*/
+
+}
+
+
+
