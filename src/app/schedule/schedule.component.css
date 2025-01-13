@@ -107,10 +107,16 @@ li:hover {
   transform: translateY(-5px);
 }
 
-span {
+span.schedule-date {
   font-size: 16px;
-  color: #4a148c;
-  font-weight: 500;
+  color: #4a148c;  /* Purple color for date */
+  font-weight: bold;
+}
+
+span.schedule-time {
+  font-size: 16px;
+  color: #1976d2;  /* Blue color for time */
+  font-weight: bold;
 }
 
 /* Edit / Remove Buttons */

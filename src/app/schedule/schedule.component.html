@@ -38,7 +38,7 @@
         required
       />
     </div>
-<br> <br>
+    <br><br>
     <button
       class="btn btn-primary w-100"
       (click)="addSchedule()">
@@ -56,7 +56,8 @@
       <li
         *ngFor="let schedule of schedules; let i = index"
         class="list-group-item d-flex justify-content-between align-items-center">
-        <span>{{ schedule.date }}: {{ schedule.startTime }} - {{ schedule.endTime }}</span>
+        <span class="schedule-date">{{ schedule.date }}</span>:
+        <span class="schedule-time">{{ schedule.startTime }} - {{ schedule.endTime }}</span>
         <button class="btn btn-sm btn-warning" (click)="editSchedule(i)">Edit</button>
         <button class="btn btn-sm btn-danger" (click)="removeSchedule(i)">Remove</button>
       </li>
