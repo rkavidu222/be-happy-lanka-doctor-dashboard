@@ -1,1 +1,65 @@
-<p>schedule works!</p>
+<div class="container mt-5">
+  <h2 class="text-center">Schedule Appointments</h2>
+  <div class="card shadow-sm p-4">
+    <div class="mb-3">
+      <label for="datePicker" class="form-label">Select Date</label>
+      <input
+        type="date"
+        id="datePicker"
+        class="form-control"
+        [(ngModel)]="selectedDate"
+        (change)="onDateSelected($event)"
+        required
+      />
+    </div>
+    <br>
+
+    <div class="mb-3">
+      <label for="startTimePicker" class="form-label">Start Time</label>
+      <input
+        type="time"
+        id="startTimePicker"
+        class="form-control"
+        [(ngModel)]="startTime"
+        (change)="onStartTimeSelected($event)"
+        required
+      />
+    </div>
+    <br>
+
+    <div class="mb-3">
+      <label for="endTimePicker" class="form-label">End Time</label>
+      <input
+        type="time"
+        id="endTimePicker"
+        class="form-control"
+        [(ngModel)]="endTime"
+        (change)="onEndTimeSelected($event)"
+        required
+      />
+    </div>
+<br> <br>
+    <button
+      class="btn btn-primary w-100"
+      (click)="addSchedule()">
+      {{ editIndex !== null ? 'Update Schedule' : 'Add Schedule' }}
+    </button>
+
+    <div *ngIf="message" class="alert mt-3" [ngClass]="{'alert-success': schedules.length > 0, 'alert-danger': schedules.length === 0}">
+      {{ message }}
+    </div>
+  </div>
+
+  <div class="mt-4">
+    <h3>Scheduled Appointments</h3>
+    <ul class="list-group">
+      <li
+        *ngFor="let schedule of schedules; let i = index"
+        class="list-group-item d-flex justify-content-between align-items-center">
+        <span>{{ schedule.date }}: {{ schedule.startTime }} - {{ schedule.endTime }}</span>
+        <button class="btn btn-sm btn-warning" (click)="editSchedule(i)">Edit</button>
+        <button class="btn btn-sm btn-danger" (click)="removeSchedule(i)">Remove</button>
+      </li>
+    </ul>
+  </div>
+</div>
