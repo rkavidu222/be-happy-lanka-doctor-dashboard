@@ -10,6 +10,7 @@ import { ArticalComponent } from './app/artical/artical.component';
 import { ScheduleComponent } from './app/schedule/schedule.component';
 
 
+
 // Define your routes directly
 const routes: Routes = [
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
