@@ -1,65 +1,97 @@
 <div class="container mt-5">
-  <h2 class="text-center">Schedule Appointments</h2>
+  <h2 class="text-center mb-4">Schedule Appointments</h2>
   <div class="card shadow-sm p-4">
-    <div class="mb-3">
-      <label for="datePicker" class="form-label">Select Date</label>
-      <input
-        type="date"
-        id="datePicker"
-        class="form-control"
-        [(ngModel)]="selectedDate"
-        (change)="onDateSelected($event)"
-        required
-      />
-    </div>
-    <br>
+    <form (ngSubmit)="addSchedule()" novalidate>
+      <div class="row">
+        <!-- Date Picker -->
+        <div class="col-12 col-md-4 mb-3">
+          <label for="datePicker" class="form-label">Select Date</label>
+          <input
+            type="date"
+            id="datePicker"
+            class="form-control"
+            [(ngModel)]="selectedDate"
+            name="date"
+            required
+          />
+        </div>
 
-    <div class="mb-3">
-      <label for="startTimePicker" class="form-label">Start Time</label>
-      <input
-        type="time"
-        id="startTimePicker"
-        class="form-control"
-        [(ngModel)]="startTime"
-        (change)="onStartTimeSelected($event)"
-        required
-      />
-    </div>
-    <br>
+        <!-- Start Time Picker -->
+        <div class="col-12 col-md-4 mb-3">
+          <label for="startTimePicker" class="form-label">Start Time</label>
+          <input
+            type="time"
+            id="startTimePicker"
+            class="form-control"
+            [(ngModel)]="startTime"
+            name="startTime"
+            required
+          />
+        </div>
 
-    <div class="mb-3">
-      <label for="endTimePicker" class="form-label">End Time</label>
-      <input
-        type="time"
-        id="endTimePicker"
-        class="form-control"
-        [(ngModel)]="endTime"
-        (change)="onEndTimeSelected($event)"
-        required
-      />
-    </div>
-    <br><br>
-    <button
-      class="btn btn-primary w-100"
-      (click)="addSchedule()">
-      {{ editIndex !== null ? 'Update Schedule' : 'Add Schedule' }}
-    </button>
+        <!-- End Time Picker -->
+        <div class="col-12 col-md-4 mb-3">
+          <label for="endTimePicker" class="form-label">End Time</label>
+          <input
+            type="time"
+            id="endTimePicker"
+            class="form-control"
+            [(ngModel)]="endTime"
+            name="endTime"
+            required
+          />
+        </div>
+      </div>
 
+      <!-- Submit Button -->
+      <div class="d-grid gap-2">
+        <button
+          type="submit"
+          class="btn btn-primary"
+          [disabled]="!selectedDate || !startTime || !endTime || (startTime >= endTime)">
+          {{ editIndex !== null ? 'Update Schedule' : 'Add Schedule' }}
+        </button>
+      </div>
+    </form>
+
+    <!-- Validation Message -->
+    <div
+      *ngIf="!selectedDate || !startTime || !endTime || (startTime >= endTime)"
+      class="alert alert-warning mt-3"
+      role="alert">
+      Please select a valid date and time range.
+    </div>
+
+    <!-- Success Message -->
     <div *ngIf="message" class="alert mt-3" [ngClass]="{'alert-success': schedules.length > 0, 'alert-danger': schedules.length === 0}">
       {{ message }}
     </div>
   </div>
 
+  <!-- Scheduled Appointments -->
   <div class="mt-4">
-    <h3>Scheduled Appointments</h3>
+    <h3 class="mb-3">Scheduled Appointments</h3>
     <ul class="list-group">
       <li
         *ngFor="let schedule of schedules; let i = index"
         class="list-group-item d-flex justify-content-between align-items-center">
-        <span class="schedule-date">{{ schedule.date }}</span>:
-        <span class="schedule-time">{{ schedule.startTime }} - {{ schedule.endTime }}</span>
-        <button class="btn btn-sm btn-warning" (click)="editSchedule(i)">Edit</button>
-        <button class="btn btn-sm btn-danger" (click)="removeSchedule(i)">Remove</button>
+        <div>
+          <strong>{{ schedule.date }}</strong>: {{ schedule.startTime }} - {{ schedule.endTime }}
+        </div>
+        <div class="d-flex gap-2">
+          <button
+            class="btn btn-sm btn-warning"
+            aria-label="Edit Schedule"
+            (click)="editSchedule(i)">
+            Edit
+          </button>
+          <button
+            class="btn btn-sm btn-danger"
+            aria-label="Remove Schedule"
+            (click)="removeSchedule(i)">
+            Remove
+          </button>
+        </div>
       </li>
     </ul>
   </div>

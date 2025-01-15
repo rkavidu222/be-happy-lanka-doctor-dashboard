@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';  // Import FormsModule
+import { FormsModule } from '@angular/forms';
 
 interface Schedule {
   date: string;
@@ -26,90 +26,120 @@ export class ScheduleComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
-    // Load schedules from localStorage when the component initializes
-    const savedSchedules = localStorage.getItem('schedules');
-    if (savedSchedules) {
-      this.schedules = JSON.parse(savedSchedules);
+    if (typeof localStorage !== 'undefined') {
+      const savedSchedules = localStorage.getItem('schedules');
+      if (savedSchedules) {
+        try {
+          this.schedules = JSON.parse(savedSchedules);
+        } catch {
+          this.schedules = [];
+          this.message = 'Failed to load saved schedules.';
+        }
+      }
+    } else {
+      this.message = 'LocalStorage is not available.';
     }
   }
 
-  // Function to handle date selection
-  onDateSelected(event: Event): void {
-    const input = event.target as HTMLInputElement;
-    this.selectedDate = input.value;
-  }
-
-  // Function to handle start time selection
-  onStartTimeSelected(event: Event): void {
-    const input = event.target as HTMLInputElement;
-    this.startTime = input.value;
-  }
-
-  // Function to handle end time selection
-  onEndTimeSelected(event: Event): void {
-    const input = event.target as HTMLInputElement;
-    this.endTime = input.value;
-  }
-
-  // Function to schedule or update the appointment
+  // Add or update schedule
   addSchedule(): void {
     if (this.selectedDate && this.startTime && this.endTime) {
+      if (this.startTime >= this.endTime) {
+        this.message = 'Start time must be earlier than end time.';
+        this.clearMessageAfterDelay();
+        return;
+      }
+
       const newSchedule: Schedule = {
         date: this.selectedDate,
         startTime: this.startTime,
         endTime: this.endTime,
       };
-      if (this.editIndex !== null) {
-        this.schedules[this.editIndex] = newSchedule; // Update the existing schedule
-        this.message = `Schedule updated for ${this.selectedDate} from ${this.startTime} to ${this.endTime}.`;
-        this.editIndex = null; // Reset edit mode after updating
-      } else {
-        this.schedules.push(newSchedule); // Add new schedule
-        this.message = `Schedule added for ${this.selectedDate} from ${this.startTime} to ${this.endTime}.`;
+
+      // Check for time conflicts
+      if (this.hasTimeConflict(newSchedule)) {
+        this.message = 'This schedule conflicts with an existing one.';
+        this.clearMessageAfterDelay();
+        return;
       }
+
+      if (this.editIndex !== null) {
+        this.schedules[this.editIndex] = newSchedule;
+        this.message = 'Schedule updated successfully!';
+        this.clearMessageAfterDelay();
+        this.editIndex = null;
+      } else {
+        this.schedules.push(newSchedule);
+        this.message = 'Schedule added successfully!';
+        this.clearMessageAfterDelay();
+      }
+
       this.resetInputs();
-      this.sortSchedules(); // Sort schedules after adding or updating
-      this.saveSchedulesToLocalStorage(); // Save schedules to localStorage
+      this.sortSchedules();
+      this.saveSchedulesToLocalStorage();
     } else {
       this.message = 'Please fill in all fields.';
+      this.clearMessageAfterDelay();
     }
   }
 
-  // Function to reset the form inputs
+  // Check for conflicts with existing schedules
+  hasTimeConflict(newSchedule: Schedule): boolean {
+    return this.schedules.some((schedule, index) => {
+      if (this.editIndex === index) return false; // Skip the current editing schedule
+      if (schedule.date !== newSchedule.date) return false;
+      return (
+        (newSchedule.startTime >= schedule.startTime &&
+          newSchedule.startTime < schedule.endTime) ||
+        (newSchedule.endTime > schedule.startTime &&
+          newSchedule.endTime <= schedule.endTime)
+      );
+    });
+  }
+
+  // Remove schedule
+  removeSchedule(index: number): void {
+    this.schedules.splice(index, 1);
+    this.message = 'Schedule removed successfully!';
+    this.clearMessageAfterDelay();
+    this.sortSchedules();
+    this.saveSchedulesToLocalStorage();
+  }
+
+  // Edit schedule
+  editSchedule(index: number): void {
+    const schedule = this.schedules[index];
+    this.selectedDate = schedule.date;
+    this.startTime = schedule.startTime;
+    this.endTime = schedule.endTime;
+    this.editIndex = index;
+  }
+
+  // Reset inputs
   resetInputs(): void {
+    this.selectedDate = '';
     this.startTime = '';
     this.endTime = '';
   }
 
-  // Function to remove a schedule
-  removeSchedule(index: number): void {
-    this.schedules.splice(index, 1);
-    this.message = 'Schedule removed successfully.';
-    this.sortSchedules(); // Re-sort after removal
-    this.saveSchedulesToLocalStorage(); // Save updated schedules to localStorage
-  }
-
-  // Function to set up editing an existing schedule
-editSchedule(index: number): void {
-  const schedule = this.schedules[index];
-  this.selectedDate = schedule.date;
-  this.startTime = schedule.startTime;
-  this.endTime = schedule.endTime;
-  this.editIndex = index;  // Set the edit mode index
-}
-
-
-  // Function to sort schedules in ascending order by start time
+  // Sort schedules by date and time
   sortSchedules(): void {
     this.schedules.sort((a, b) => {
-      const timeA = new Date(`${a.date}T${a.startTime}`);
-      const timeB = new Date(`${b.date}T${b.startTime}`);
-      return timeA.getTime() - timeB.getTime();
+      const timeA = new Date(`${a.date}T${a.startTime}`).getTime();
+      const timeB = new Date(`${b.date}T${b.startTime}`).getTime();
+      return timeA - timeB;
     });
   }
 
-  // Function to save schedules to localStorage
+  // Save schedules to localStorage
   saveSchedulesToLocalStorage(): void {
     localStorage.setItem('schedules', JSON.stringify(this.schedules));
+  }
+
+  // Clear message after 3 seconds
+  clearMessageAfterDelay(): void {
+    setTimeout(() => {
+      this.message = '';
+    }, 3000); // Message will disappear after 3 seconds
   }
 }

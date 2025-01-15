@@ -2,7 +2,6 @@
 .container {
   max-width: 900px;
   margin: 0 auto;
-  padding: 30px 20px;
 }
 
 h2 {
@@ -59,6 +58,7 @@ button.btn-primary {
   font-weight: 600;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add box-shadow for depth */
 }
 
 button.btn-primary:hover {
@@ -66,21 +66,28 @@ button.btn-primary:hover {
   border-color: #9c27b0;
 }
 
+button.btn-primary:focus {
+  outline: none;
+  box-shadow: 0 0 8px rgba(106, 27, 154, 0.5); /* Enhanced focus */
+}
+
 /* Alert Message */
 .alert {
   padding: 15px;
   margin-top: 15px;
   border-radius: 5px;
+  font-weight: bold;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Add shadow for better contrast */
 }
 
 .alert-success {
-  background-color: #c8e6c9;
-  color: #388e3c;
+  background-color: #cce5ff; /* Light blue */
+  color: #004085; /* Dark blue text */
 }
 
 .alert-danger {
-  background-color: #ffcdd2;
-  color: #d32f2f;
+  background-color: #ffeeba; /* Light yellow background */
+  color: #856404; /* Dark yellow text */
 }
 
 /* Scheduled Appointments List */
@@ -100,6 +107,7 @@ li {
   border-radius: 10px;
   box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
   transition: background-color 0.3s, transform 0.3s;
+  animation: fadeIn 0.5s ease-out; /* Subtle fade-in animation */
 }
 
 li:hover {
@@ -130,8 +138,9 @@ button.btn-sm {
   font-weight: 600;
 }
 
+/* Edit Button */
 button.btn-warning {
-  background-color: #ff9800;
+  background-color: #ff9800; /* Orange color */
   color: white;
 }
 
@@ -140,14 +149,14 @@ button.btn-warning:hover {
   transform: translateY(-2px);
 }
 
+/* Updated Remove Button */
 button.btn-danger {
-  background-color: #f44336;
+  background-color: #007bff; /* Blue color */
   color: white;
 }
 
 button.btn-danger:hover {
-  background-color: #e53935;
-  transform: translateY(-2px);
+  background-color: #0056b3; /* Darker blue on hover */
 }
 
 /* Responsive Design */
@@ -182,5 +191,17 @@ button.btn-danger:hover {
   li {
     padding: 15px;
     font-size: 14px;
+  }
+}
+
+/* Keyframes for fade-in */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
