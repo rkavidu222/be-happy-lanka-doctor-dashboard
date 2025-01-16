@@ -45,10 +45,11 @@
 fieldset {
   border-radius: 12px;
   padding: 20px 70px;
-  border: none; /* Remove default border */
-  background: linear-gradient(145deg, #e4cfff, #9c27b0);
-  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.15),
-              -4px -4px 10px rgba(255, 255, 255, 0.7);
+  border: 1px; /* Remove default border */
+  background: #f9f1fc;
+  border: black;
+  /*box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.15),*/
+  /*            -4px -4px 10px rgba(255, 255, 255, 0.7);*/
   position: relative;
 }
 
