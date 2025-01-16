@@ -1,122 +1,144 @@
 /* Requests Section Container */
 .requests-section {
-  background: rgba(249, 234, 250, 0.8); /* Glassmorphism effect */
-  backdrop-filter: blur(10px);
-  padding: 20px 40px;
-  border-radius: 12px;
-  margin: auto;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1); /* Enhanced depth */
+  background: rgba(255, 255, 255, 0.8); /* Lighter glassmorphism effect */
+  backdrop-filter: blur(12px);
+  padding: 24px 36px;
+  border-radius: 14px;
+  margin: 20px auto;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15); /* Softer shadow for a modern feel */
+  max-width: 1200px; /* Added max width for responsiveness */
 }
 
 /* Section Heading */
 .requests-section h3 {
   text-align: center;
-  color: #7b1fa2;
-  font-size: 18px;
-  font-weight: bold;
-  margin-bottom: 20px;
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2); /* Soft shadow effect */
+  color: #5e35b1; /* Slightly darker purple */
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 24px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.15); /* Soft shadow effect */
+  letter-spacing: 0.5px;
+  font-family: 'Roboto', sans-serif; /* Clean, modern font */
 }
 
 /* General Table Styling */
 .table {
   width: 100%;
   border-collapse: collapse;
-  margin-bottom: 20px;
-  border-radius: 8px;
+  margin-bottom: 30px;
+  border-radius: 10px;
   overflow: hidden; /* Rounds table edges */
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Subtle table shadow */
-}
-
-.status.approved {
-  background: rgb(98, 235, 98); /* Gradient for approved */
-}
-
-.status.rejected {
-  background: rgb(255, 0, 0); /* Gradient for rejected */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
 }
 
 .table th, .table td {
-  border: 1px solid rgba(200, 200, 200, 0.3); /* Semi-transparent borders */
-  padding: 10px;
+  border: 1px solid #dcdcdc; /* Soft, neutral borders */
+  padding: 12px 16px;
   text-align: center;
-  font-size: 14px;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  font-size: 15px;
+  color: #444; /* Darker text for better readability */
 }
 
 .table th {
-  background: linear-gradient(145deg, #f3e5f5, #e1bee7); /* Gradient header */
-  color: #6a1b9a;
+  background: #d6bafa; /* Slightly darker background for header */
+  color: #400e7e; /* Dark purple for header */
   text-transform: uppercase;
   letter-spacing: 1px;
 }
 
-.table tr {
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
 .table tr:hover {
-  transform: scale(1.02); /* Slight lift on hover */
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px); /* Slight lift */
+  background: #fafafa; /* Subtle hover effect */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
 }
 
 .table td {
-  color: #555;
-  position: relative;
+  font-size: 14px;
+  color: #000000;
+}
+
+/* Status Styling (Approved/Rejected) */
+.status-approved {
+  background-color: #007bff; /* Blue for approved */
+  color: white;
+  border-radius: 5px;
+  font-weight: bold;
+  padding: 8px 16px;
+  display: flex;
+  align-items: center; /* Align icon and text */
+  gap: 6px; /* Add gap between icon and text */
+}
+
+.status-rejected {
+  background-color: #ffcc00; /* Yellow for rejected */
+  color: black;
+  border-radius: 5px;
+  font-weight: bold;
+  padding: 8px 16px;
+  display: flex;
+  align-items: center; /* Align icon and text */
+  gap: 6px; /* Add gap between icon and text */
+}
+
+/* Highlight icon on hover to attract attention */
+.status-approved i,
+.status-rejected i {
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.status-approved i:hover,
+.status-rejected i:hover {
+  transform: scale(1.2); /* Slight zoom on hover */
+  color: #fff; /* Make icon stand out */
 }
 
 /* Button Styling */
 .view-btn {
-  background: linear-gradient(145deg, #9c27b0, #7b1fa2);
+  background: linear-gradient(135deg, #8e24aa, #7b1fa2); /* Purple gradient */
   color: #fff;
   border: none;
-  padding: 8px 15px;
-  border-radius: 10px; /* Pill-shaped button */
-  font-size: 14px;
+  padding: 10px 18px;
+  border-radius: 50px; /* Pill-shaped button */
+  font-size: 16px;
   cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .view-btn:hover {
-  background: linear-gradient(145deg, #7b1fa2, #9c27b0);
-  transform: translateY(-3px);
-  box-shadow: 0 6px 15px rgba(123, 31, 162, 0.3); /* Glow effect on hover */
+  background: linear-gradient(135deg, #7b1fa2, #8e24aa);
+  transform: translateY(-4px); /* Slight lift effect */
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2); /* Soft shadow on hover */
 }
 
 .view-btn:focus {
-  outline: 2px solid #5a256f;
-  outline-offset: 2px;
+  outline: 3px solid #ab47bc;
+  outline-offset: 3px;
 }
 
-/* Approved/Rejected Status Colors */
-.status {
-  font-weight: bold;
-  padding: 8px;
-  border-radius: 8px; /* Softer edges */
-  color: #555;
-  text-align: center;
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2); /* Glow for better readability */
+/* Add Bootstrap Icon styling */
+.view-btn i {
+  margin-right: 8px; /* Space between icon and text */
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
   .requests-section {
-    padding: 20px 20px;
+    padding: 20px 16px;
   }
 
   .table th, .table td {
-    font-size: 12px; /* Adjust font size for smaller screens */
-    padding: 8px;
+    font-size: 14px; /* Smaller font size on mobile */
+    padding: 8px 10px;
   }
 
   .view-btn {
-    font-size: 12px;
-    padding: 6px 10px;
+    font-size: 14px;
+    padding: 8px 14px;
   }
 
   .status {
-    font-size: 12px;
-    padding: 6px;
+    font-size: 14px;
+    padding: 6px 10px;
   }
 }

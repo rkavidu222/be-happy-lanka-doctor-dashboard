@@ -16,62 +16,85 @@
   </div>
 
   <div class="profile-details">
-    <form>
-      <fieldset><legend><h2>My Profile</h2></legend>
+    <form (ngSubmit)="validatePassword()">
+      <fieldset>
+        <legend>
+          <h2>My Profile</h2>
+        </legend>
         <div class="form-row">
           <label for="fullName">Full Name</label>
-          <input id="fullName" type="text" value="X.Y.Z.Peris" />
+          <input id="fullName" type="text" placeholder="Enter your full name" />
         </div>
         <div class="form-row">
           <label for="address">Address</label>
-          <input id="address" type="text" value="Monaragala" />
+          <input id="address" type="text" placeholder="Enter your address" />
         </div>
         <div class="form-row">
           <label for="age">Age</label>
-          <input id="age" type="number" value="30" />
+          <input id="age" type="number" placeholder="Enter your age" />
         </div>
         <div class="form-row">
           <label for="mobile">Mobile Number</label>
-          <input id="mobile" type="text" value="077 7777777" />
+          <input id="mobile" type="text" placeholder="Enter your mobile number" />
         </div>
         <div class="form-row">
           <label for="email">E-mail</label>
-          <input id="email" type="email" value="abc@gmail.com" />
+          <input id="email" type="email" placeholder="Enter your email" />
         </div>
-
         <div class="form-row">
           <label for="spec">Specialization</label>
-          <select id="spec" class="form-row">
-            <option class="form-row" value="sp">Select Specialization</option>
-            <option value="sp1"></option>
+          <select id="spec">
+            <option value="">Select Specialization</option>
+            <option value="cardiology">Cardiology</option>
+            <option value="neurology">Neurology</option>
+            <option value="orthopedics">Orthopedics</option>
+            <option value="marriageCounseling">Marriage Counseling</option>
+            <option value="depressionCounseling">Depression Counseling</option>
+            <option value="anxietyCounseling">Anxiety Counseling</option>
+            <option value="careerCounseling">Career Counseling</option>
+            <option value="relationshipCounseling">Relationship Counseling</option>
           </select>
         </div>
         <div class="form-row">
           <label for="exp">Year of Experience</label>
-          <input id="exp" type="text" value="5 years" />
+          <input id="exp" type="text" placeholder="Enter your years of experience" />
         </div>
         <div class="form-row">
           <label for="prof">Professional Qualification</label>
-          <input id="prof" type="text" value="..." />
+          <input id="prof" type="text" placeholder="Enter your qualifications" />
         </div>
-
-
-<!--        <div class="form-row">-->
-<!--          <label>Gender</label>-->
-<!--          <div class="radio-group">-->
-<!--            <input type="radio" id="male" name="gender" value="male" />-->
-<!--            <label for="male">Male</label>-->
-<!--            <input type="radio" id="female" name="gender" value="female" />-->
-<!--            <label for="female">Female</label>-->
-<!--          </div>-->
-<!--        </div>-->
         <div class="form-row">
           <label for="status">Status</label>
-          <textarea rows="8" id="status">abc...........</textarea>
+          <textarea rows="4" id="status" placeholder="Enter your status"></textarea>
         </div>
-        <button type="submit" class="update-button">Update</button>
+
+        <!-- Password Fields -->
+        <div class="form-row">
+          <label for="oldPassword">Old Password</label>
+          <input id="oldPassword" type="password" placeholder="Enter your old password" />
+        </div>
+        <div class="form-row">
+          <label for="newPassword">New Password</label>
+          <div class="password-container">
+            <input id="newPassword" [type]="passwordVisible ? 'text' : 'password'" placeholder="Enter a strong password" (input)="checkPasswordStrength(); checkPasswordsMatch()" />
+            <i class="bi" [class]="passwordVisible ? 'bi-eye-slash' : 'bi-eye'" (click)="togglePasswordVisibility()"></i>
+          </div>
+          <div id="passwordStrength" class="error-message">{{passwordStrengthMessage}}</div>
+        </div>
+        <div class="form-row">
+          <label for="confirmPassword">Confirm New Password</label>
+          <div class="password-container">
+            <input id="confirmPassword" [type]="passwordVisible ? 'text' : 'password'" placeholder="Re-enter your new password" (input)="checkPasswordsMatch()" />
+            <i class="bi" [class]="passwordVisible ? 'bi-eye-slash' : 'bi-eye'" (click)="togglePasswordVisibility()"></i>
+          </div>
+          <div id="passwordError" class="error-message" *ngIf="!passwordsMatch">Passwords do not match</div>
+          <div *ngIf="passwordsMatch" class="text-success">
+            <i class="bi bi-check-circle"></i> Passwords match
+          </div>
+        </div>
+
+        <button type="submit" class="update-button">Update Profile</button>
       </fieldset>
     </form>
   </div>
-
 </div>

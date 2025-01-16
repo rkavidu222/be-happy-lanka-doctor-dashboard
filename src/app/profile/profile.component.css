@@ -5,6 +5,18 @@
   padding: 10px;
 }
 
+@media (max-width: 768px) {
+  .profile-container {
+    width: 85%; /* Adjust for medium-sized screens */
+  }
+}
+
+@media (max-width: 480px) {
+  .profile-container {
+    width: 95%; /* Adjust for smaller screens */
+  }
+}
+
 /* Profile Header */
 .profile-header {
   text-align: center;
@@ -17,7 +29,7 @@
 }
 
 .avatar img {
-  width: 100px;  /* Fixed width */
+  width: 100px; /* Fixed width */
   height: 100px; /* Fixed height */
   border-radius: 50%;
   border: 4px solid #9c27b0;
@@ -41,16 +53,24 @@
 }
 
 /* Profile Details */
-/* 3D Fieldset Styling */
 fieldset {
   border-radius: 12px;
   padding: 20px 70px;
-  border: 1px; /* Remove default border */
+  border: 1px solid #ccc;
   background: #f9f1fc;
-  border: black;
-  /*box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.15),*/
-  /*            -4px -4px 10px rgba(255, 255, 255, 0.7);*/
   position: relative;
+}
+
+@media (max-width: 768px) {
+  fieldset {
+    padding: 15px 40px; /* Reduce padding for medium screens */
+  }
+}
+
+@media (max-width: 480px) {
+  fieldset {
+    padding: 10px 20px; /* Further reduce padding for smaller screens */
+  }
 }
 
 legend {
@@ -72,10 +92,11 @@ legend {
   margin-bottom: 15px;
 }
 
+/* Form Label Styles */
 .form-row label {
   font-size: 14px;
   margin-bottom: 5px;
-  color: #000000;
+  color: #9c27b0;
   font-weight: bold;
 }
 
@@ -97,9 +118,22 @@ textarea {
   resize: none;
 }
 
-.radio-group {
-  display: flex;
-  gap: 10px;
+.password-container {
+  position: relative;
+  width: 100%;
+}
+
+.password-container input {
+  width: 100%;
+  padding-right: 40px; /* Make space for the icon */
+}
+
+.password-container i {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
 }
 
 /* Update Button */
@@ -119,7 +153,45 @@ textarea {
   transform: translateY(-3px);
 }
 
-/* Subtle Animations */
+/* Validation Messages */
+.error-message {
+  color: #dc3545;
+  font-size: 0.8em;
+  margin-top: 4px;
+}
+
+.form-row input.ng-invalid.ng-touched,
+.form-row textarea.ng-invalid.ng-touched {
+  border-color: #dc3545;
+}
+
+.form-row input.ng-valid.ng-touched,
+.form-row textarea.ng-valid.ng-touched {
+  border-color: #198754;
+}
+
+/* Success Message */
+.text-success {
+  color: #198754;
+  font-size: 0.9em;
+}
+
+.bi-eye, .bi-eye-slash {
+  font-size: 18px;
+  color: #9c27b0;
+}
+
 .profile-container, fieldset {
   animation: fadeIn 1s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

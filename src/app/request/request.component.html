@@ -20,7 +20,7 @@
         <td>0710000000</td>
         <td>.......</td>
         <td>.......</td>
-        <td>Pending</td>
+        <td class="status pending">Pending</td> <!-- Pending status added -->
         <td>
           <button (click)="navigateToViewButton()" class="view-btn">
             View
@@ -50,7 +50,9 @@
         <td>0710000000</td>
         <td>.......</td>
         <td>.......</td>
-        <td class="status approved">Approved</td>
+        <td class="status-approved">
+          Approved <i class="bi bi-check-circle"></i>
+        </td> <!-- Icon for approved -->
       </tr>
       <tr>
         <td>2</td>
@@ -58,7 +60,9 @@
         <td>0710000011</td>
         <td>.......</td>
         <td>.......</td>
-        <td class="status rejected">Rejected</td>
+        <td class="status-rejected">
+          Rejected <i class="bi bi-x-circle"></i>
+        </td> <!-- Icon for rejected -->
       </tr>
     </tbody>
   </table>
