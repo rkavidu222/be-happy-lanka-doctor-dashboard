@@ -1,1 +1,23 @@
-Artticle part
+<div class="container">
+  <h1>Start Writing</h1>
+  <input type="text" placeholder="Title" [(ngModel)]="title" class="title-input">
+
+  <div class="button-row">
+    <button (click)="formatText('bold')">B</button>
+    <button (click)="formatText('italic')">I</button>
+    <button (click)="formatText('underline')">U</button>
+    <button (click)="addEmoji('😊')">😊</button>
+    <button (click)="addEmoji('🔥')">🔥</button>
+    <button (click)="addEmoji('❤️')">❤️</button>
+  </div>
+
+  <!-- Use contenteditable div for rich text input -->
+  <div class="article-textarea" contenteditable="true" [(ngModel)]="article"></div>
+
+  <div class="button-row">
+    <button (click)="postArticle()">Post</button>
+    <button (click)="cancel()">Cancel</button>
+  </div>
+
+  <div *ngIf="posted" class="posted-message">Posted Successfully!</div>
+</div>

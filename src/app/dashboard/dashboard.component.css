@@ -278,7 +278,7 @@ html {
 
 /* Sticky Article */
 .artical {
-  background-color: #7e57c2; /* Rich purple background */
+  background:  #58007e;
   color: white; /* White text for contrast */
   display: flex;
   justify-content: space-between; /* Space between text and button */
