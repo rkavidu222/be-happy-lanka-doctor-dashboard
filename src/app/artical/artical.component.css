@@ -35,3 +35,12 @@ button {
   color: green;
   font-weight: bold;
 }
+
+button {
+  margin-right: 0.5rem;
+}
+
+button.active {
+  background-color: #007BFF;
+  color: white;
+}

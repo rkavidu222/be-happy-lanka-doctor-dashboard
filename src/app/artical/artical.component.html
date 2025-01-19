@@ -3,15 +3,14 @@
   <input type="text" placeholder="Title" [(ngModel)]="title" class="title-input">
 
   <div class="button-row">
-    <button (click)="formatText('bold')">B</button>
-    <button (click)="formatText('italic')">I</button>
-    <button (click)="formatText('underline')">U</button>
+    <button [class.active]="isBold" (click)="toggleBold()">B</button>
+    <button [class.active]="isItalic" (click)="toggleItalic()">I</button>
+    <button [class.active]="isUnderline" (click)="toggleUnderline()">U</button>
     <button (click)="addEmoji('😊')">😊</button>
     <button (click)="addEmoji('🔥')">🔥</button>
     <button (click)="addEmoji('❤️')">❤️</button>
   </div>
 
-  <!-- Use contenteditable div for rich text input -->
   <div class="article-textarea" contenteditable="true" [(ngModel)]="article"></div>
 
   <div class="button-row">

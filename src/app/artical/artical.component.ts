@@ -5,7 +5,7 @@ import { CommonModule } from '@angular/common'; // Import CommonModule
 @Component({
   selector: 'app-artical',
   standalone: true,
-  imports: [FormsModule, CommonModule],  // Include FormsModule and CommonModule
+  imports: [FormsModule, CommonModule],
   templateUrl: './artical.component.html',
   styleUrls: ['./artical.component.css']
 })
@@ -14,57 +14,25 @@ export class ArticalComponent {
   article: string = '';
   posted: boolean = false;
 
-  // Track the active state of each formatting option
   isBold: boolean = false;
   isItalic: boolean = false;
   isUnderline: boolean = false;
 
-  // Function to format text (bold, italic, underline)
-  formatText(format: string) {
-    const selection = window.getSelection();
-    const range = selection?.getRangeAt(0);
-
-    if (!range || range.collapsed) return;  // Do nothing if no text is selected
-
-    const selectedText = range.toString();
-    const parentElement = range.startContainer.parentElement;
-
-    let shouldApplyStyle = false;
-
-    switch (format) {
-      case 'bold':
-        // Toggle the bold style
-        shouldApplyStyle = this.isBold ? false : true;
-        this.isBold = shouldApplyStyle;
-        break;
-      case 'italic':
-        // Toggle the italic style
-        shouldApplyStyle = this.isItalic ? false : true;
-        this.isItalic = shouldApplyStyle;
-        break;
-      case 'underline':
-        // Toggle the underline style
-        shouldApplyStyle = this.isUnderline ? false : true;
-        this.isUnderline = shouldApplyStyle;
-        break;
-    }
-
-    // Apply or remove the selected style to the text
-    if (shouldApplyStyle) {
-      document.execCommand(format);  // Apply the style
-    } else {
-      document.execCommand(format);  // Remove the style
-    }
-
-    // Move the cursor to the end of the newly formatted text
-    const newRange = document.createRange();
-    newRange.setStartAfter(range.endContainer);
-    newRange.setEndAfter(range.endContainer);
-    selection?.removeAllRanges();
-    selection?.addRange(newRange);
+  toggleBold() {
+    this.isBold = !this.isBold;
+    document.execCommand('bold'); // Toggles bold formatting
   }
 
-  // Function to insert emoji
+  toggleItalic() {
+    this.isItalic = !this.isItalic;
+    document.execCommand('italic'); // Toggles italic formatting
+  }
+
+  toggleUnderline() {
+    this.isUnderline = !this.isUnderline;
+    document.execCommand('underline'); // Toggles underline formatting
+  }
+
   addEmoji(emoji: string) {
     const selection = window.getSelection();
     const range = selection?.getRangeAt(0);
@@ -72,10 +40,9 @@ export class ArticalComponent {
     if (!range) return;
 
     const emojiNode = document.createTextNode(emoji);
-    range.deleteContents();  // Remove selected text
-    range.insertNode(emojiNode);  // Insert emoji at cursor position
+    range.deleteContents();
+    range.insertNode(emojiNode);
 
-    // Move the cursor after the emoji
     const newRange = document.createRange();
     newRange.setStartAfter(emojiNode);
     newRange.setEndAfter(emojiNode);
@@ -83,15 +50,12 @@ export class ArticalComponent {
     selection?.addRange(newRange);
   }
 
-  // Function to post the article
   postArticle() {
     this.posted = true;
-    // Reset title and article after posting
     this.title = '';
     this.article = '';
   }
 
-  // Function to cancel the action
   cancel() {
     this.title = '';
     this.article = '';
