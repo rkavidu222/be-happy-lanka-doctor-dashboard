@@ -1,6 +1,11 @@
 <div class="container">
   <h1>Start Writing</h1>
-  <input type="text" placeholder="Title" [(ngModel)]="title" class="title-input">
+  <input
+    type="text"
+    placeholder="Title"
+    [(ngModel)]="title"
+    class="title-input"
+  />
 
   <div class="button-row">
     <button [class.active]="isBold" (click)="toggleBold()">B</button>
@@ -11,7 +16,11 @@
     <button (click)="addEmoji('❤️')">❤️</button>
   </div>
 
-  <div class="article-textarea" contenteditable="true" [(ngModel)]="article"></div>
+  <div
+    class="article-textarea"
+    contenteditable="true"
+    (input)="updateArticle($event)"
+  ></div>
 
   <div class="button-row">
     <button (click)="postArticle()">Post</button>
