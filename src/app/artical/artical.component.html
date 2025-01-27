@@ -14,6 +14,12 @@
     <button (click)="addEmoji('😊')">😊</button>
     <button (click)="addEmoji('🔥')">🔥</button>
     <button (click)="addEmoji('❤️')">❤️</button>
+    <input
+      type="file"
+      (change)="addImage($event)"
+      accept="image/*"
+      class="file-input"
+    />
   </div>
 
   <div

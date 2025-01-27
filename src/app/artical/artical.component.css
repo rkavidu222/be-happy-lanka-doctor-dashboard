@@ -19,11 +19,23 @@
 
 button {
   margin-right: 0.5rem;
+}
+
+.article-textarea {
+  width: 100%;
+  height: 200px;
   padding: 0.5rem;
-  border: none;
+  margin-bottom: 1rem;
+  border: 1px solid #ccc;
   border-radius: 5px;
-  background-color: #ddd;
-  cursor: pointer;
+  overflow-y: auto;
+  white-space: pre-wrap;
+}
+
+.posted-message {
+  margin-top: 1rem;
+  color: green;
+  font-weight: bold;
 }
 
 button.active {
@@ -31,27 +43,24 @@ button.active {
   color: white;
 }
 
-button:hover {
-  background-color: #0056b3;
+.article-textarea img {
+  max-width: 100%; /* Image will adjust to fit the width of the textarea */
+  height: auto;
+  display: block;
+  margin: 1rem 0;
+  border: 1px solid #ddd; /* Optional border for images */
+}
+
+/* Style for File Input Button */
+button[type="file"] {
+  background-color: #28a745;
   color: white;
-}
-
-.article-textarea {
-  width: 100%;
-  height: 200px;
-  max-height: 400px;
-  padding: 0.5rem;
-  border: 1px solid #ccc;
+  padding: 0.5rem 1rem;
+  border: none;
   border-radius: 5px;
-  overflow-y: auto;
+  cursor: pointer;
 }
 
-.article-textarea:focus {
-  outline: 2px solid #007bff;
-}
-
-.posted-message {
-  margin-top: 1rem;
-  color: green;
-  font-weight: bold;
+button[type="file"]:hover {
+  background-color: #218838;
 }
