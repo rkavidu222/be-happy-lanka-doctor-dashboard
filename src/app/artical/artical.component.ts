@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
@@ -9,14 +9,42 @@ import { CommonModule } from '@angular/common';
   templateUrl: './artical.component.html',
   styleUrls: ['./artical.component.css'],
 })
-export class ArticalComponent {
+export class ArticalComponent implements OnInit, OnDestroy {
   title: string = '';
   article: string = '';
   posted: boolean = false;
+  uploadedImages: string[] = []; // Stores uploaded image URLs
 
   isBold: boolean = false;
   isItalic: boolean = false;
   isUnderline: boolean = false;
+
+  ngOnInit() {
+    document.addEventListener('keydown', this.handleKeyboardShortcuts.bind(this));
+  }
+
+  ngOnDestroy() {
+    document.removeEventListener('keydown', this.handleKeyboardShortcuts.bind(this));
+  }
+
+  handleKeyboardShortcuts(event: KeyboardEvent) {
+    if (event.ctrlKey) {
+      switch (event.key) {
+        case 'b':
+          event.preventDefault();
+          this.toggleBold();
+          break;
+        case 'i':
+          event.preventDefault();
+          this.toggleItalic();
+          break;
+        case 'u':
+          event.preventDefault();
+          this.toggleUnderline();
+          break;
+      }
+    }
+  }
 
   toggleBold() {
     this.isBold = !this.isBold;
@@ -54,6 +82,7 @@ export class ArticalComponent {
     }
   }
 
+  // Existing function - Keeps images inside the article text
   addImage(event: Event) {
     const fileInput = event.target as HTMLInputElement;
 
@@ -62,22 +91,19 @@ export class ArticalComponent {
       const reader = new FileReader();
 
       reader.onload = () => {
-        // Create the image element
         const imgElement = document.createElement('img');
         imgElement.src = reader.result as string;
-        imgElement.style.width = '100%'; // Resize image based on container width
-        imgElement.style.height = 'auto'; // Maintain aspect ratio
+        imgElement.style.width = '100%';
+        imgElement.style.height = 'auto';
         imgElement.style.margin = '1rem 0';
         imgElement.alt = "Uploaded Image";
 
-        // Insert image in the contenteditable area
         const selection = window.getSelection();
         if (selection && selection.rangeCount > 0) {
           const range = selection.getRangeAt(0);
-          range.deleteContents(); // Remove any selected text
-          range.insertNode(imgElement); // Insert image node
+          range.deleteContents();
+          range.insertNode(imgElement);
 
-          // Adjust caret position after image
           const newRange = document.createRange();
           newRange.setStartAfter(imgElement);
           newRange.setEndAfter(imgElement);
@@ -92,6 +118,25 @@ export class ArticalComponent {
     }
   }
 
+  // New function - Keeps images separate from the article text
+  uploadImage(event: Event) {
+    const fileInput = event.target as HTMLInputElement;
+    if (fileInput.files && fileInput.files.length > 0) {
+      const file = fileInput.files[0];
+      const reader = new FileReader();
+
+      reader.onload = () => {
+        this.uploadedImages.push(reader.result as string);
+      };
+
+      reader.readAsDataURL(file);
+    }
+  }
+
+  removeImage(index: number) {
+    this.uploadedImages.splice(index, 1);
+  }
+
   focusContentEditable() {
     const editableElement = document.querySelector('.article-textarea') as HTMLElement;
     if (editableElement) {
@@ -100,7 +145,13 @@ export class ArticalComponent {
   }
 
   updateArticle(event: Event) {
-    this.article = (event.target as HTMLElement).innerHTML;
+    const content = (event.target as HTMLElement).innerHTML.trim();
+    this.article = content;
+
+    // Reset formatting when the article is cleared
+    if (!content) {
+      this.resetFormatting();
+    }
   }
 
   postArticle() {
@@ -112,6 +163,8 @@ export class ArticalComponent {
     this.posted = true;
     this.title = '';
     this.article = '';
+    this.uploadedImages = [];
+    this.resetFormatting();
 
     setTimeout(() => {
       this.posted = false;
@@ -119,19 +172,25 @@ export class ArticalComponent {
   }
 
   cancel() {
-    // Clear all fields and reset styling states
     this.title = '';
     this.article = '';
+    this.uploadedImages = [];
+    this.resetFormatting();
+
+    const editableElement = document.querySelector('.article-textarea') as HTMLElement;
+    if (editableElement) {
+      editableElement.innerHTML = '';
+    }
+
+    this.focusContentEditable();
+  }
+
+  resetFormatting() {
     this.isBold = false;
     this.isItalic = false;
     this.isUnderline = false;
 
-    const editableElement = document.querySelector('.article-textarea') as HTMLElement;
-    if (editableElement) {
-      editableElement.innerHTML = ''; // Clear content inside textarea
-    }
-
-    // Optional: focus back to the contenteditable area
-    this.focusContentEditable();
+    // Reset any applied formatting
+    document.execCommand('removeFormat');
   }
 }
