@@ -13,7 +13,6 @@ export class ArticalComponent implements OnInit, OnDestroy {
   title: string = '';
   article: string = '';
   posted: boolean = false;
-  uploadedImages: string[] = []; // Stores uploaded image URLs
 
   isBold: boolean = false;
   isItalic: boolean = false;
@@ -82,7 +81,6 @@ export class ArticalComponent implements OnInit, OnDestroy {
     }
   }
 
-  // Existing function - Keeps images inside the article text
   addImage(event: Event) {
     const fileInput = event.target as HTMLInputElement;
 
@@ -118,25 +116,6 @@ export class ArticalComponent implements OnInit, OnDestroy {
     }
   }
 
-  // New function - Keeps images separate from the article text
-  uploadImage(event: Event) {
-    const fileInput = event.target as HTMLInputElement;
-    if (fileInput.files && fileInput.files.length > 0) {
-      const file = fileInput.files[0];
-      const reader = new FileReader();
-
-      reader.onload = () => {
-        this.uploadedImages.push(reader.result as string);
-      };
-
-      reader.readAsDataURL(file);
-    }
-  }
-
-  removeImage(index: number) {
-    this.uploadedImages.splice(index, 1);
-  }
-
   focusContentEditable() {
     const editableElement = document.querySelector('.article-textarea') as HTMLElement;
     if (editableElement) {
@@ -163,7 +142,6 @@ export class ArticalComponent implements OnInit, OnDestroy {
     this.posted = true;
     this.title = '';
     this.article = '';
-    this.uploadedImages = [];
     this.resetFormatting();
 
     setTimeout(() => {
@@ -174,7 +152,6 @@ export class ArticalComponent implements OnInit, OnDestroy {
   cancel() {
     this.title = '';
     this.article = '';
-    this.uploadedImages = [];
     this.resetFormatting();
 
     const editableElement = document.querySelector('.article-textarea') as HTMLElement;
