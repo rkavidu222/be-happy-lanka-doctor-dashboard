@@ -13,10 +13,10 @@ export class ArticalComponent implements OnInit, OnDestroy {
   title: string = '';
   article: string = '';
   posted: boolean = false;
-
   isBold: boolean = false;
   isItalic: boolean = false;
   isUnderline: boolean = false;
+  image: string | null = null;
 
   ngOnInit() {
     document.addEventListener('keydown', this.handleKeyboardShortcuts.bind(this));
@@ -81,6 +81,13 @@ export class ArticalComponent implements OnInit, OnDestroy {
     }
   }
 
+  triggerFileInput() {
+    const fileInput = document.querySelector('#fileInput') as HTMLInputElement;
+    if (fileInput) {
+      fileInput.click(); // Trigger the file input click programmatically
+    }
+  }
+
   addImage(event: Event) {
     const fileInput = event.target as HTMLInputElement;
 
@@ -89,27 +96,7 @@ export class ArticalComponent implements OnInit, OnDestroy {
       const reader = new FileReader();
 
       reader.onload = () => {
-        const imgElement = document.createElement('img');
-        imgElement.src = reader.result as string;
-        imgElement.style.width = '100%';
-        imgElement.style.height = 'auto';
-        imgElement.style.margin = '1rem 0';
-        imgElement.alt = "Uploaded Image";
-
-        const selection = window.getSelection();
-        if (selection && selection.rangeCount > 0) {
-          const range = selection.getRangeAt(0);
-          range.deleteContents();
-          range.insertNode(imgElement);
-
-          const newRange = document.createRange();
-          newRange.setStartAfter(imgElement);
-          newRange.setEndAfter(imgElement);
-          selection.removeAllRanges();
-          selection.addRange(newRange);
-
-          this.focusContentEditable();
-        }
+        this.image = reader.result as string; // Set the uploaded image data
       };
 
       reader.readAsDataURL(file);
@@ -142,6 +129,7 @@ export class ArticalComponent implements OnInit, OnDestroy {
     this.posted = true;
     this.title = '';
     this.article = '';
+    this.image = null; // Reset the image after posting
     this.resetFormatting();
 
     setTimeout(() => {
@@ -152,6 +140,7 @@ export class ArticalComponent implements OnInit, OnDestroy {
   cancel() {
     this.title = '';
     this.article = '';
+    this.image = null; // Reset the image
     this.resetFormatting();
 
     const editableElement = document.querySelector('.article-textarea') as HTMLElement;

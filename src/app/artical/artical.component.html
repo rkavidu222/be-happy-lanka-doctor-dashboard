@@ -1,12 +1,27 @@
 <div class="container">
   <h1>Start Writing</h1>
-  <input
-    type="text"
-    placeholder="Title"
-    [(ngModel)]="title"
-    class="title-input"
-  />
 
+  <!-- Title Input with Image Upload Button -->
+  <div class="title-input-container">
+    <input
+      type="text"
+      placeholder="Title"
+      [(ngModel)]="title"
+      class="title-input"
+    />
+    <input
+      type="file"
+      (change)="addImage($event)"
+      accept="image/*"
+      class="file-input"
+    />
+  </div> <br>
+
+  <!-- Display Uploaded Image -->
+  <div *ngIf="image" class="image-display">
+    <img [src]="image" alt="Uploaded Image" />
+  </div>
+<br>
   <div class="button-row">
     <button [class.active]="isBold" (click)="toggleBold()">B</button>
     <button [class.active]="isItalic" (click)="toggleItalic()">I</button>
@@ -14,14 +29,9 @@
     <button (click)="addEmoji('😊')">😊</button>
     <button (click)="addEmoji('🔥')">🔥</button>
     <button (click)="addEmoji('❤️')">❤️</button>
-    <input
-      type="file"
-      (change)="addImage($event)"
-      accept="image/*"
-      class="file-input"
-    />
   </div>
 
+  <!-- Content Editable Text Area -->
   <div
     class="article-textarea"
     contenteditable="true"
@@ -30,7 +40,7 @@
 
   <div class="button-row">
     <button (click)="postArticle()">Post</button>
-    <button (click)="cancel()">Cancel</button>
+    <button (click)="cancel()">Clear</button>
   </div>
 
   <div *ngIf="posted" class="posted-message">Posted Successfully!</div>

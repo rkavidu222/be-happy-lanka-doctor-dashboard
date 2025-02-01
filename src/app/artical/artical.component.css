@@ -11,6 +11,30 @@
   width: 100%;
   padding: 0.5rem;
   margin-bottom: 1rem;
+  font-weight: bold; /* Ensure the title text is always bold */
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #fff;
+}
+
+.image-display {
+  margin-top: 1rem;
+  width: 100%;
+  max-width: 600px;
+  height: 300px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.image-display img {
+  max-width: 100%;
+  height: auto;
+  object-fit: cover;
 }
 
 .button-row {
@@ -44,14 +68,13 @@ button.active {
 }
 
 .article-textarea img {
-  max-width: 100%; /* Image will adjust to fit the width of the textarea */
+  max-width: 100%;
   height: auto;
   display: block;
   margin: 1rem 0;
-  border: 1px solid #ddd; /* Optional border for images */
+  border: 1px solid #ddd;
 }
 
-/* Style for File Input Button */
 button[type="file"] {
   background-color: #28a745;
   color: white;
@@ -64,3 +87,5 @@ button[type="file"] {
 button[type="file"]:hover {
   background-color: #218838;
 }
+
+
