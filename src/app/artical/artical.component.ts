@@ -17,8 +17,10 @@ export class ArticalComponent implements OnInit, OnDestroy {
   isItalic: boolean = false;
   isUnderline: boolean = false;
   image: string | null = null;
+  posts: any[] = []; // Array to hold posts
 
   ngOnInit() {
+    this.loadPosts(); // Load posts from localStorage
     document.addEventListener('keydown', this.handleKeyboardShortcuts.bind(this));
   }
 
@@ -81,13 +83,6 @@ export class ArticalComponent implements OnInit, OnDestroy {
     }
   }
 
-  triggerFileInput() {
-    const fileInput = document.querySelector('#fileInput') as HTMLInputElement;
-    if (fileInput) {
-      fileInput.click(); // Trigger the file input click programmatically
-    }
-  }
-
   addImage(event: Event) {
     const fileInput = event.target as HTMLInputElement;
 
@@ -96,7 +91,7 @@ export class ArticalComponent implements OnInit, OnDestroy {
       const reader = new FileReader();
 
       reader.onload = () => {
-        this.image = reader.result as string; // Set the uploaded image data
+        this.image = reader.result as string;
       };
 
       reader.readAsDataURL(file);
@@ -114,7 +109,6 @@ export class ArticalComponent implements OnInit, OnDestroy {
     const content = (event.target as HTMLElement).innerHTML.trim();
     this.article = content;
 
-    // Reset formatting when the article is cleared
     if (!content) {
       this.resetFormatting();
     }
@@ -126,10 +120,19 @@ export class ArticalComponent implements OnInit, OnDestroy {
       return;
     }
 
+    const newPost = {
+      title: this.title,
+      article: this.article,
+      image: this.image,
+    };
+
+    this.posts.push(newPost); // Add post to the posts array
+    localStorage.setItem('posts', JSON.stringify(this.posts)); // Save to localStorage
+
     this.posted = true;
     this.title = '';
     this.article = '';
-    this.image = null; // Reset the image after posting
+    this.image = null;
     this.resetFormatting();
 
     setTimeout(() => {
@@ -140,7 +143,7 @@ export class ArticalComponent implements OnInit, OnDestroy {
   cancel() {
     this.title = '';
     this.article = '';
-    this.image = null; // Reset the image
+    this.image = null;
     this.resetFormatting();
 
     const editableElement = document.querySelector('.article-textarea') as HTMLElement;
@@ -156,7 +159,27 @@ export class ArticalComponent implements OnInit, OnDestroy {
     this.isItalic = false;
     this.isUnderline = false;
 
-    // Reset any applied formatting
     document.execCommand('removeFormat');
+  }
+
+  loadPosts() {
+    const storedPosts = localStorage.getItem('posts');
+    if (storedPosts) {
+      this.posts = JSON.parse(storedPosts);
+    }
+  }
+
+  removePost(index: number) {
+    this.posts.splice(index, 1); // Remove post from the array
+    localStorage.setItem('posts', JSON.stringify(this.posts)); // Update localStorage
+  }
+
+  editPost(index: number) {
+    const post = this.posts[index];
+    this.title = post.title;
+    this.article = post.article;
+    this.image = post.image;
+
+    this.removePost(index); // Remove the old post to avoid duplicates
   }
 }
