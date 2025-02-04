@@ -18,6 +18,8 @@ export class ArticalComponent implements OnInit, OnDestroy {
   isUnderline: boolean = false;
   image: string | null = null;
   posts: any[] = []; // Array to hold posts
+  isEditing: boolean = false; // Track if we're editing a post
+  editingIndex: number | null = null; // Store the index of the post being edited
 
   ngOnInit() {
     this.loadPosts(); // Load posts from localStorage
@@ -126,32 +128,38 @@ export class ArticalComponent implements OnInit, OnDestroy {
       image: this.image,
     };
 
-    this.posts.push(newPost); // Add post to the posts array
+    // If we are editing an existing post, update the post instead of adding a new one
+    if (this.isEditing && this.editingIndex !== null) {
+      this.posts[this.editingIndex] = newPost;
+    } else {
+      this.posts.push(newPost); // Add new post to the posts array
+    }
+
     localStorage.setItem('posts', JSON.stringify(this.posts)); // Save to localStorage
 
+    // Clear all fields after posting
+    this.resetFormFields();
+
     this.posted = true;
-    this.title = '';
-    this.article = '';
-    this.image = null;
-    this.resetFormatting();
+
+    // Reset editing state
+    this.isEditing = false;
+    this.editingIndex = null;
 
     setTimeout(() => {
       this.posted = false;
     }, 3000);
   }
 
-  cancel() {
-    this.title = '';
-    this.article = '';
-    this.image = null;
-    this.resetFormatting();
-
+  resetFormFields() {
+    this.title = '';   // Clear title
+    this.article = ''; // Clear article content
+    this.image = null;  // Clear image
     const editableElement = document.querySelector('.article-textarea') as HTMLElement;
     if (editableElement) {
-      editableElement.innerHTML = '';
+      editableElement.innerHTML = ''; // Clear the article content area
     }
-
-    this.focusContentEditable();
+    this.resetFormatting(); // Reset formatting (Bold, Italic, Underline)
   }
 
   resetFormatting() {
@@ -176,10 +184,29 @@ export class ArticalComponent implements OnInit, OnDestroy {
 
   editPost(index: number) {
     const post = this.posts[index];
+
+    // Set the post data into the form fields
     this.title = post.title;
     this.article = post.article;
     this.image = post.image;
 
-    this.removePost(index); // Remove the old post to avoid duplicates
+    // Set the article content in the contenteditable area
+    const editableElement = document.querySelector('.article-textarea') as HTMLElement;
+    if (editableElement) {
+      editableElement.innerHTML = this.article; // Insert the article content back
+    }
+
+    // Mark as editing and store the index of the post being edited
+    this.isEditing = true;
+    this.editingIndex = index;
+
+    // Focus the contenteditable area for immediate editing
+    this.focusContentEditable();
+  }
+
+  cancel() {
+    this.resetFormFields();
+    this.isEditing = false;
+    this.editingIndex = null;
   }
 }

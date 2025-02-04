@@ -47,17 +47,21 @@
 
   <div *ngIf="posted" class="posted-message">Posted Successfully!</div>
 
+  <br><br>
   <!-- Displaying Posts -->
-  <div class="posts-container">
-    <h2>Posts</h2>
+  <div class="posts-section">
+    <h2>Posted Articles</h2>
     <div *ngFor="let post of posts; let i = index" class="post">
       <div class="post-header">
         <img *ngIf="post.image" [src]="post.image" alt="Post Image" class="post-image"/>
-        <h3>{{ post.title }}</h3>
+        <h4>{{ post.title }}</h4>
         <div class="post-actions">
           <button (click)="editPost(i)">Edit</button>
           <button (click)="removePost(i)">Remove</button>
         </div>
       </div>
+      <!-- Render article content with HTML -->
+      <div [innerHTML]="post.article"></div>
+    </div>
   </div>
 </div>
