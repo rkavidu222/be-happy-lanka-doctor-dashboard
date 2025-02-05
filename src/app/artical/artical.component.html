@@ -1,28 +1,15 @@
 <div class="container">
   <h1>Start Writing</h1>
 
-  <!-- Title Input with Image Upload Button -->
   <div class="title-input-container">
-    <input
-      type="text"
-      placeholder="Title"
-      [(ngModel)]="title"
-      class="title-input"
-    />
-    <input
-      type="file"
-      (change)="addImage($event)"
-      accept="image/*"
-      class="file-input"
-    />
+    <input type="text" placeholder="Title" [(ngModel)]="title" class="title-input" />
+    <input type="file" (change)="addImage($event)" accept="image/*" class="file-input" />
   </div><br>
 
-  <!-- Display Uploaded Image -->
   <div *ngIf="image" class="image-display">
     <img [src]="image" alt="Uploaded Image" />
   </div><br>
 
-  <!-- Button Row -->
   <div class="button-row">
     <button [class.active]="isBold" (click)="toggleBold()">B</button>
     <button [class.active]="isItalic" (click)="toggleItalic()">I</button>
@@ -32,14 +19,8 @@
     <button (click)="addEmoji('❤️')">❤️</button>
   </div>
 
-  <!-- Content Editable Text Area -->
-  <div
-    class="article-textarea"
-    contenteditable="true"
-    (input)="updateArticle($event)"
-  ></div>
+  <div class="article-textarea" contenteditable="true" (input)="updateArticle($event)"></div>
 
-  <!-- Post and Clear Buttons -->
   <div class="button-row">
     <button (click)="postArticle()">Post</button>
     <button (click)="cancel()">Clear</button>
@@ -48,7 +29,6 @@
   <div *ngIf="posted" class="posted-message">Posted Successfully!</div>
 
   <br><br>
-  <!-- Displaying Posts -->
   <div class="posts-section">
     <h2>Posted Articles</h2>
     <div *ngFor="let post of posts; let i = index" class="post">
@@ -60,8 +40,6 @@
           <button (click)="removePost(i)">Remove</button>
         </div>
       </div>
-      <!-- Render article content with HTML -->
-      <div [innerHTML]="post.article"></div>
     </div>
   </div>
 </div>

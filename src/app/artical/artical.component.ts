@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
@@ -20,6 +20,8 @@ export class ArticalComponent implements OnInit, OnDestroy {
   posts: any[] = []; // Array to hold posts
   isEditing: boolean = false; // Track if we're editing a post
   editingIndex: number | null = null; // Store the index of the post being edited
+
+  constructor(private cdr: ChangeDetectorRef) {}
 
   ngOnInit() {
     this.loadPosts(); // Load posts from localStorage
@@ -94,6 +96,7 @@ export class ArticalComponent implements OnInit, OnDestroy {
 
       reader.onload = () => {
         this.image = reader.result as string;
+        this.cdr.detectChanges();
       };
 
       reader.readAsDataURL(file);
@@ -137,18 +140,22 @@ export class ArticalComponent implements OnInit, OnDestroy {
 
     localStorage.setItem('posts', JSON.stringify(this.posts)); // Save to localStorage
 
-    // Clear all fields after posting
-    this.resetFormFields();
-
     this.posted = true;
+    this.cdr.detectChanges();
+
+    setTimeout(() => {
+      this.posted = false;
+      this.cdr.detectChanges();
+    }, 3000);
+
+    // Reset form fields only if not in edit mode
+    if (!this.isEditing) {
+      this.resetFormFields();
+    }
 
     // Reset editing state
     this.isEditing = false;
     this.editingIndex = null;
-
-    setTimeout(() => {
-      this.posted = false;
-    }, 3000);
   }
 
   resetFormFields() {
@@ -160,6 +167,7 @@ export class ArticalComponent implements OnInit, OnDestroy {
       editableElement.innerHTML = ''; // Clear the article content area
     }
     this.resetFormatting(); // Reset formatting (Bold, Italic, Underline)
+    this.cdr.detectChanges();
   }
 
   resetFormatting() {
@@ -180,6 +188,7 @@ export class ArticalComponent implements OnInit, OnDestroy {
   removePost(index: number) {
     this.posts.splice(index, 1); // Remove post from the array
     localStorage.setItem('posts', JSON.stringify(this.posts)); // Update localStorage
+    this.cdr.detectChanges();
   }
 
   editPost(index: number) {
