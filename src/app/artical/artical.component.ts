@@ -17,14 +17,14 @@ export class ArticalComponent implements OnInit, OnDestroy {
   isItalic: boolean = false;
   isUnderline: boolean = false;
   image: string | null = null;
-  posts: any[] = []; // Array to hold posts
-  isEditing: boolean = false; // Track if we're editing a post
-  editingIndex: number | null = null; // Store the index of the post being edited
+  posts: any[] = [];
+  isEditing: boolean = false;
+  editingIndex: number | null = null;
 
   constructor(private cdr: ChangeDetectorRef) {}
 
   ngOnInit() {
-    this.loadPosts(); // Load posts from localStorage
+    this.loadPosts();
     document.addEventListener('keydown', this.handleKeyboardShortcuts.bind(this));
   }
 
@@ -89,16 +89,21 @@ export class ArticalComponent implements OnInit, OnDestroy {
 
   addImage(event: Event) {
     const fileInput = event.target as HTMLInputElement;
-
     if (fileInput.files && fileInput.files[0]) {
       const file = fileInput.files[0];
+      if (!file.type.startsWith('image/')) {
+        alert('Please upload a valid image file.');
+        return;
+      }
+      if (file.size > 5 * 1024 * 1024) { // 5MB limit
+        alert('Image size should not exceed 5MB.');
+        return;
+      }
       const reader = new FileReader();
-
       reader.onload = () => {
         this.image = reader.result as string;
         this.cdr.detectChanges();
       };
-
       reader.readAsDataURL(file);
     }
   }
@@ -131,14 +136,13 @@ export class ArticalComponent implements OnInit, OnDestroy {
       image: this.image,
     };
 
-    // If we are editing an existing post, update the post instead of adding a new one
     if (this.isEditing && this.editingIndex !== null) {
       this.posts[this.editingIndex] = newPost;
     } else {
-      this.posts.push(newPost); // Add new post to the posts array
+      this.posts.push(newPost);
     }
 
-    localStorage.setItem('posts', JSON.stringify(this.posts)); // Save to localStorage
+    localStorage.setItem('posts', JSON.stringify(this.posts));
 
     this.posted = true;
     this.cdr.detectChanges();
@@ -148,25 +152,23 @@ export class ArticalComponent implements OnInit, OnDestroy {
       this.cdr.detectChanges();
     }, 3000);
 
-    // Reset form fields only if not in edit mode
     if (!this.isEditing) {
       this.resetFormFields();
     }
 
-    // Reset editing state
     this.isEditing = false;
     this.editingIndex = null;
   }
 
   resetFormFields() {
-    this.title = '';   // Clear title
-    this.article = ''; // Clear article content
-    this.image = null;  // Clear image
+    this.title = '';
+    this.article = '';
+    this.image = null;
     const editableElement = document.querySelector('.article-textarea') as HTMLElement;
     if (editableElement) {
-      editableElement.innerHTML = ''; // Clear the article content area
+      editableElement.innerHTML = '';
     }
-    this.resetFormatting(); // Reset formatting (Bold, Italic, Underline)
+    this.resetFormatting();
     this.cdr.detectChanges();
   }
 
@@ -174,7 +176,6 @@ export class ArticalComponent implements OnInit, OnDestroy {
     this.isBold = false;
     this.isItalic = false;
     this.isUnderline = false;
-
     document.execCommand('removeFormat');
   }
 
@@ -186,30 +187,26 @@ export class ArticalComponent implements OnInit, OnDestroy {
   }
 
   removePost(index: number) {
-    this.posts.splice(index, 1); // Remove post from the array
-    localStorage.setItem('posts', JSON.stringify(this.posts)); // Update localStorage
-    this.cdr.detectChanges();
+    if (confirm('Are you sure you want to delete this post?')) {
+      this.posts.splice(index, 1);
+      localStorage.setItem('posts', JSON.stringify(this.posts));
+      this.cdr.detectChanges();
+    }
   }
 
   editPost(index: number) {
     const post = this.posts[index];
-
-    // Set the post data into the form fields
     this.title = post.title;
     this.article = post.article;
     this.image = post.image;
 
-    // Set the article content in the contenteditable area
     const editableElement = document.querySelector('.article-textarea') as HTMLElement;
     if (editableElement) {
-      editableElement.innerHTML = this.article; // Insert the article content back
+      editableElement.innerHTML = this.article;
     }
 
-    // Mark as editing and store the index of the post being edited
     this.isEditing = true;
     this.editingIndex = index;
-
-    // Focus the contenteditable area for immediate editing
     this.focusContentEditable();
   }
 
