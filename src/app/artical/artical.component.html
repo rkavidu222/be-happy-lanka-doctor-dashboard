@@ -19,7 +19,7 @@
     <button (click)="addEmoji('❤️')">❤️</button>
   </div>
 
-  <div class="article-textarea" contenteditable="true" (input)="updateArticle($event)"></div>
+  <div class="article-textarea" contenteditable="true" (input)="updateArticle($event)" [innerHTML]="article"></div>
 
   <div class="button-row">
     <button (click)="postArticle()">
@@ -40,10 +40,21 @@
         <img *ngIf="post.image" [src]="post.image" alt="Post Image" class="post-image"/>
         <h4>{{ post.title }}</h4>
         <div class="post-actions">
+          <button (click)="viewPost(i)">View</button>
           <button (click)="editPost(i)">Edit</button>
           <button (click)="removePost(i)">Remove</button>
         </div>
       </div>
+    </div>
+  </div>
+
+  <!-- Modal to display full article -->
+  <div *ngIf="selectedPost" class="modal">
+    <div class="modal-content">
+      <span class="close" (click)="closeModal()">&times;</span>
+      <h2>{{ selectedPost.title }}</h2>
+      <img *ngIf="selectedPost.image" [src]="selectedPost.image" alt="Post Image" class="modal-image"/>
+      <div [innerHTML]="safeHtmlContent"></div>
     </div>
   </div>
 </div>

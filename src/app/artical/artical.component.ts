@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-artical',
@@ -20,8 +21,13 @@ export class ArticalComponent implements OnInit, OnDestroy {
   posts: any[] = [];
   isEditing: boolean = false;
   editingIndex: number | null = null;
+  selectedPost: any = null;
+  safeHtmlContent: SafeHtml = '';
 
-  constructor(private cdr: ChangeDetectorRef) {}
+  constructor(
+    private cdr: ChangeDetectorRef,
+    private sanitizer: DomSanitizer
+  ) {}
 
   ngOnInit() {
     this.loadPosts();
@@ -95,7 +101,7 @@ export class ArticalComponent implements OnInit, OnDestroy {
         alert('Please upload a valid image file.');
         return;
       }
-      if (file.size > 5 * 1024 * 1024) { // 5MB limit
+      if (file.size > 5 * 1024 * 1024) {
         alert('Image size should not exceed 5MB.');
         return;
       }
@@ -116,12 +122,8 @@ export class ArticalComponent implements OnInit, OnDestroy {
   }
 
   updateArticle(event: Event) {
-    const content = (event.target as HTMLElement).innerHTML.trim();
-    this.article = content;
-
-    if (!content) {
-      this.resetFormatting();
-    }
+    const editableElement = event.target as HTMLElement;
+    this.article = editableElement.innerHTML; // Capture the inner HTML
   }
 
   postArticle() {
@@ -137,7 +139,7 @@ export class ArticalComponent implements OnInit, OnDestroy {
     };
 
     if (this.isEditing && this.editingIndex !== null) {
-      this.posts[this.editingIndex] = newPost; // Update existing post
+      this.posts[this.editingIndex] = newPost;
       this.posted = true;
       this.cdr.detectChanges();
 
@@ -146,12 +148,11 @@ export class ArticalComponent implements OnInit, OnDestroy {
         this.cdr.detectChanges();
       }, 3000);
 
-      // Reset form fields after updating
       this.resetFormFields();
       this.isEditing = false;
       this.editingIndex = null;
     } else {
-      this.posts.push(newPost); // Add new post
+      this.posts.push(newPost);
       this.posted = true;
       this.cdr.detectChanges();
 
@@ -160,7 +161,6 @@ export class ArticalComponent implements OnInit, OnDestroy {
         this.cdr.detectChanges();
       }, 3000);
 
-      // Reset form fields after posting
       this.resetFormFields();
     }
 
@@ -215,6 +215,16 @@ export class ArticalComponent implements OnInit, OnDestroy {
     this.isEditing = true;
     this.editingIndex = index;
     this.focusContentEditable();
+  }
+
+  viewPost(index: number) {
+    this.selectedPost = this.posts[index];
+    this.safeHtmlContent = this.sanitizer.bypassSecurityTrustHtml(this.selectedPost.article);
+  }
+
+  closeModal() {
+    this.selectedPost = null;
+    this.safeHtmlContent = '';
   }
 
   cancel() {
