@@ -22,11 +22,15 @@
   <div class="article-textarea" contenteditable="true" (input)="updateArticle($event)"></div>
 
   <div class="button-row">
-    <button (click)="postArticle()">Post</button>
+    <button (click)="postArticle()">
+      {{ isEditing ? 'Update' : 'Post' }}
+    </button>
     <button (click)="cancel()">Clear</button>
   </div>
 
-  <div *ngIf="posted" class="posted-message">Posted Successfully!</div>
+  <div *ngIf="posted" class="posted-message">
+    {{ isEditing ? 'Updated Successfully!' : 'Posted Successfully!' }}
+  </div>
 
   <br><br>
   <div class="posts-section">

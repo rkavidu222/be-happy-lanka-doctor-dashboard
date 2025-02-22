@@ -137,27 +137,34 @@ export class ArticalComponent implements OnInit, OnDestroy {
     };
 
     if (this.isEditing && this.editingIndex !== null) {
-      this.posts[this.editingIndex] = newPost;
-    } else {
-      this.posts.push(newPost);
-    }
-
-    localStorage.setItem('posts', JSON.stringify(this.posts));
-
-    this.posted = true;
-    this.cdr.detectChanges();
-
-    setTimeout(() => {
-      this.posted = false;
+      this.posts[this.editingIndex] = newPost; // Update existing post
+      this.posted = true;
       this.cdr.detectChanges();
-    }, 3000);
 
-    if (!this.isEditing) {
+      setTimeout(() => {
+        this.posted = false;
+        this.cdr.detectChanges();
+      }, 3000);
+
+      // Reset form fields after updating
+      this.resetFormFields();
+      this.isEditing = false;
+      this.editingIndex = null;
+    } else {
+      this.posts.push(newPost); // Add new post
+      this.posted = true;
+      this.cdr.detectChanges();
+
+      setTimeout(() => {
+        this.posted = false;
+        this.cdr.detectChanges();
+      }, 3000);
+
+      // Reset form fields after posting
       this.resetFormFields();
     }
 
-    this.isEditing = false;
-    this.editingIndex = null;
+    localStorage.setItem('posts', JSON.stringify(this.posts));
   }
 
   resetFormFields() {
