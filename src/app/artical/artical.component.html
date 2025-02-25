@@ -1,60 +1,60 @@
-<div class="container">
-  <h1>Start Writing</h1>
+  <div class="container">
+    <h1>Start Writing</h1>
 
-  <div class="title-input-container">
-    <input type="text" placeholder="Title" [(ngModel)]="title" class="title-input" />
-    <input type="file" (change)="addImage($event)" accept="image/*" class="file-input" />
-  </div><br>
+    <div class="title-input-container">
+      <input type="text" placeholder="Title" [(ngModel)]="title" class="title-input" />
+      <input type="file" (change)="addImage($event)" accept="image/*" class="file-input" />
+    </div><br>
 
-  <div *ngIf="image" class="image-display">
-    <img [src]="image" alt="Uploaded Image" />
-  </div><br>
+    <div *ngIf="image" class="image-display">
+      <img [src]="image" alt="Uploaded Image" />
+    </div><br>
 
-  <div class="button-row">
-    <button [class.active]="isBold" (click)="toggleBold()">B</button>
-    <button [class.active]="isItalic" (click)="toggleItalic()">I</button>
-    <button [class.active]="isUnderline" (click)="toggleUnderline()">U</button>
-    <button (click)="addEmoji('😊')">😊</button>
-    <button (click)="addEmoji('🔥')">🔥</button>
-    <button (click)="addEmoji('❤️')">❤️</button>
-  </div>
+    <div class="button-row">
+      <button [class.active]="isBold" (click)="toggleBold()">B</button>
+      <button [class.active]="isItalic" (click)="toggleItalic()">I</button>
+      <button [class.active]="isUnderline" (click)="toggleUnderline()">U</button>
+      <button (click)="addEmoji('😊')">😊</button>
+      <button (click)="addEmoji('🔥')">🔥</button>
+      <button (click)="addEmoji('❤️')">❤️</button>
+    </div>
 
-  <div class="article-textarea" contenteditable="true" (input)="updateArticle($event)" [innerHTML]="article"></div>
+    <div class="article-textarea" contenteditable="true" (input)="updateArticle($event)" [innerHTML]="article"></div>
 
-  <div class="button-row">
-    <button (click)="postArticle()">
-      {{ isEditing ? 'Update' : 'Post' }}
-    </button>
-    <button (click)="cancel()">Clear</button>
-  </div>
+    <div class="button-row">
+      <button (click)="postArticle()">
+        {{ isEditing ? 'Update' : 'Post' }}
+      </button>
+      <button (click)="cancel()">Clear</button>
+    </div>
 
-  <div *ngIf="posted" class="posted-message">
-    {{ isEditing ? 'Updated Successfully!' : 'Posted Successfully!' }}
-  </div>
+    <div *ngIf="posted" class="posted-message">
+      {{ isEditing ? 'Updated Successfully!' : 'Posted Successfully!' }}
+    </div>
 
-  <br><br>
-  <div class="posts-section">
-    <h2>Posted Articles</h2>
-    <div *ngFor="let post of posts; let i = index" class="post">
-      <div class="post-header">
-        <img *ngIf="post.image" [src]="post.image" alt="Post Image" class="post-image"/>
-        <h4>{{ post.title }}</h4>
-        <div class="post-actions">
-          <button (click)="viewPost(i)">View</button>
-          <button (click)="editPost(i)">Edit</button>
-          <button (click)="removePost(i)">Remove</button>
+    <br><br>
+    <div class="posts-section">
+      <h2>Posted Articles</h2>
+      <div *ngFor="let post of posts; let i = index" class="post">
+        <div class="post-header">
+          <img *ngIf="post.image" [src]="post.image" alt="Post Image" class="post-image"/>
+          <h4>{{ post.title }}</h4>
+          <div class="post-actions">
+            <button (click)="viewPost(i)">View</button>
+            <button (click)="editPost(i)">Edit</button>
+            <button (click)="removePost(i)">Remove</button>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <!-- Modal to display full article -->
-  <div *ngIf="selectedPost" class="modal">
-    <div class="modal-content">
-      <span class="close" (click)="closeModal()">&times;</span>
-      <h2>{{ selectedPost.title }}</h2>
-      <img *ngIf="selectedPost.image" [src]="selectedPost.image" alt="Post Image" class="modal-image"/>
-      <div [innerHTML]="safeHtmlContent"></div>
+    <!-- Modal to display full article -->
+    <div *ngIf="selectedPost" class="modal">
+      <div class="modal-content">
+        <span class="close" (click)="closeModal()">&times;</span>
+        <h2>{{ selectedPost.title }}</h2>
+        <img *ngIf="selectedPost.image" [src]="selectedPost.image" alt="Post Image" class="modal-image"/>
+        <div [innerHTML]="safeHtmlContent"></div>
+      </div>
     </div>
   </div>
-</div>

@@ -84,6 +84,7 @@ h2 {
   display: flex;
   gap: 0.5rem;
   margin-bottom: 1.5rem;
+
 }
 
 button {
@@ -93,6 +94,7 @@ button {
   border-radius: 8px;
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.2s ease;
+
 }
 
 button:hover {
@@ -116,6 +118,8 @@ button:not(.active) {
 button:not(.active):hover {
   background-color: #d0d0d0;
 }
+
+
 
 /* Article Textarea */
 .article-textarea {
@@ -178,7 +182,7 @@ button:not(.active):hover {
 .post-image {
   width: 60px;
   height: 60px;
-  object-fit: cover;
+  object-fit: contain;
   border-radius: 8px;
   margin-right: 1rem;
 }
@@ -224,6 +228,8 @@ button:not(.active):hover {
   max-width: 800px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
   position: relative;
+  white-space: pre-wrap;
+  word-wrap: break-word;
 }
 
 .close {
@@ -237,7 +243,7 @@ button:not(.active):hover {
 }
 
 .close:hover {
-  color: #333;
+  color: #000000;
 }
 
 .modal-image {
