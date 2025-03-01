@@ -20,8 +20,8 @@
     </div>
 
     <div class="article-textarea" contenteditable="true" (input)="updateArticle($event)" [innerHTML]="article"></div>
-
-    <div class="button-row">
+    <br>
+    <div class="post-actions">
       <button (click)="postArticle()">
         {{ isEditing ? 'Update' : 'Post' }}
       </button>
